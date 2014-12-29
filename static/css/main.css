@@ -1,0 +1,44 @@
+.modal-body{
+	height:250px;
+}
+
+th {
+	text-align: center;
+}
+
+td {
+	cursor:pointer;
+}
+
+td .form-control {
+	border-right:none;
+}
+td .form-control:hover {
+	background-color: #DDDDDD;
+}
+
+.points-hidden {
+	background-color:white;
+	border-left:none;
+}
+
+.points-hidden button {
+		visibility: hidden;
+}
+
+.selected .form-control {
+	background-color:#7AD984;
+	color:white;
+}
+
+.selected .form-control:hover {
+	background-color:#64B46C;
+	color:white;
+}
+.dropdown-menu-right {
+	min-width:0px;
+}
+
+.input-group-addon {
+	padding: 0px 0px;
+}
