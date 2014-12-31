@@ -1,4 +1,4 @@
-var picks = {};
+var picks = JSON.parse($('#picksHolder').prop("value"));
 
 $(".input-group").click(function(){
 	var pick = $(this).parent().attr("id");
@@ -12,7 +12,7 @@ $(".input-group").click(function(){
 		picks[opponent] = 0;
 	}
 	
-	console.log(pick + " selected vs "+ opponent );
+	// console.log(pick + " selected vs "+ opponent );
 	$(this).parent().addClass("selected");
 	$(this).find('button').prop('disabled', false);
 })
@@ -24,5 +24,18 @@ $(".dropdown-menu li a").click(function(){
   $(this).parents('.input-group-btn').find('.dropdown-toggle').html(selText+' <span class="caret"></span>');
   picks[$(this).parents('td').prop('id')] = parseInt(selText);
 
-  $('#picks').prop("value", JSON.stringify(picks));
+  $('#picksHolder').prop("value", JSON.stringify(picks));
 });
+
+function setup() {
+	
+	console.log(picks)
+	for(var pick in picks) {
+		$('#'+pick).addClass("selected");
+		$('#'+pick).find('.dropdown-toggle').html(picks[pick] + ' <span class="caret"></span>')
+		$('#'+pick).find('button').prop('disabled', false);
+
+	}
+}
+
+setup()
