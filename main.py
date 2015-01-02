@@ -29,7 +29,7 @@ class ConfigClass(object):
     MAIL_USE_SSL =        int(os.getenv('MAIL_USE_SSL',         False))
 
     # Flask-User settings
-    USER_APP_NAME        = "AppName"                # Used by email templates
+    USER_APP_NAME        = "NFL Playoff Challenge"                # Used by email templates
     USER_ENABLE_EMAIL              = os.getenv('USER_ENABLE_EMAIL', False)
     USER_AFTER_LOGIN_ENDPOINT = 'login'
     USER_AFTER_LOGOUT_ENDPOINT = ''
@@ -56,6 +56,7 @@ class User(db.Model, UserMixin):
 
     # User information
     active = db.Column('is_active', db.Boolean(), nullable=False, server_default='0')
+    group = db.Column(db.String(100), nullable=False, server_default='')
     first_name = db.Column(db.String(100), nullable=False, server_default='')
     last_name = db.Column(db.String(100), nullable=False, server_default='')
 
@@ -63,11 +64,14 @@ class PickForm(Form):
 	picks = StringField('picks', validators=[validators.DataRequired("An error occurred")])
 	submit = SubmitField('Save')
 
+class GroupRegisterForm(forms.RegisterForm):
+	group = StringField('Group', validators=[validators.DataRequired("A group name is required")])
+
 # Create all database tables
 db.create_all()
 # Setup Flask-User
 db_adapter = SQLAlchemyAdapter(db, User)        # Register the User model
-user_manager = UserManager(db_adapter, app)     # Initialize Flask-User
+user_manager = UserManager(db_adapter, app, register_form=GroupRegisterForm)     # Initialize Flask-User
 
 # @app.before_request
 # def init_users():
