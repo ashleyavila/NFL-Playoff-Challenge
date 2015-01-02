@@ -129,7 +129,7 @@ def submit():
 @login_required
 def leaderboard():
 	leaderboard = getLeaderboard(current_user.group)
-	return render_template('leaderboard.html', data=leaderboard)
+	return render_template('leaderboard.html', group=current_user.group, data=leaderboard)
 
 def getLeaderboard(group):
 	leaderboard = {}
@@ -141,6 +141,8 @@ def getLeaderboard(group):
 def calculateScore(picks):
 	if type(picks) is unicode:
 		picks = ast.literal_eval(picks)
+	if not picks:
+		return 0
 	score = 0
 	# picks = {1: {1:[2,5],2:[1,3],3:[2,2],4:[2,7]}, 2: {}, 3: {}, 4: {}}
 	correctPicks = {1: {}, 2: {}, 3: {}, 4: {}}
