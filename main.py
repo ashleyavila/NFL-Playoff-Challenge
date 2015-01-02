@@ -132,6 +132,8 @@ def cleanForm(i):
 	return str(s)
 
 def convertPicks(old):
+	if not old:
+		return None
 	print old
 	old = ast.literal_eval(old)
 	new = {}
