@@ -44,6 +44,7 @@
         <a href="{{config.PREFIX}}/">Home</a>
         {% if current_user.is_authenticated() %}
             &nbsp; | &nbsp; <a href="{{config.PREFIX}}{{ url_for('user.profile') }}">User profile</a>
+            &nbsp; | &nbsp; <a href="{{config.PREFIX}}/leaderboard">Leaderboard</a>
         {% endif %}
     </div>
     {% endblock %}

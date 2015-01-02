@@ -125,6 +125,31 @@ def submit():
 		# request
 	return render_template('index.html', picks=convertPicks(current_user.picks), username=current_user.username, submission="Successfully submitted")
 
+@app.route("/leaderboard", methods=['GET'])
+@login_required
+def leaderboard():
+	leaderboard = getLeaderboard(current_user.group)
+	return render_template('leaderboard.html', data=leaderboard)
+
+def getLeaderboard(group):
+	leaderboard = {}
+	users = User.query.filter(User.group == group).all()
+	for user in users:
+		leaderboard[user.username] = calculateScore(user.picks)
+	return leaderboard
+
+def calculateScore(picks):
+	if type(picks) is unicode:
+		picks = ast.literal_eval(picks)
+	score = 0
+	# picks = {1: {1:[2,5],2:[1,3],3:[2,2],4:[2,7]}, 2: {}, 3: {}, 4: {}}
+	correctPicks = {1: {}, 2: {}, 3: {}, 4: {}}
+	for p in picks.keys():
+		for r in picks[p].keys():
+			if r in correctPicks[p] and correctPicks[p][r][0] == picks[p][r][0]:
+				score += picks[p][r][1]
+	return score
+
 def cleanForm(i):
 	print i
 	picks = ast.literal_eval(i)
