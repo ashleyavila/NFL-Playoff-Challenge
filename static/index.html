@@ -19,10 +19,9 @@
       padding-bottom: 20px;
     }
   </style>
-  <!-- <link rel="stylesheet" href="static/css/bootstrap-theme.min.css"> -->
-  <link rel="stylesheet" href="static/css/main.css">
+  
 
-  <script src="static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+  <!-- <script src="static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script> -->
 </head>
 <body>
   <div class="container">
@@ -179,12 +178,20 @@
   </div>
 
 
-</div> <!-- /container -->        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.1.min.js"><\/script>')</script>
+</div> <!-- /container -->        
 
 <!-- <script src="static/js/vendor/bootstrap.min.js"></script> -->
 
-<script src="static/js/main.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.1.min.js"><\/script>')</script>
+  <!-- <link rel="stylesheet" href="static/css/bootstrap-theme.min.css"> -->
+  {% if config.PREFIX %}
+  <script src="{{config.PREFIX}}/static/js/main.js"></script>
+  <link rel="stylesheet" href="{{config.PREFIX}}/static/css/main.css">
+  {% else %}
+  <script src="static/js/main.js"></script>
+  <link rel="stylesheet" href="static/css/main.css">
+  {% endif %}
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 <script>
