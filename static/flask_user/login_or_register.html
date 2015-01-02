@@ -9,7 +9,7 @@
 <h1>{%trans%}Sign in{%endtrans%}</h1>
 
 {# ** Login form ** #}
-<form action="{{ url_for('user.login') }}" method="POST" class="form" role="form">
+<form action="{{config.PREFIX}}{{ url_for('user.login') }}" method="POST" class="form" role="form">
     {{ login_form.hidden_tag() }}
 
     {# Username or Email #}
@@ -30,7 +30,7 @@
     {% if user_manager.enable_forgot_password %}
         <p>
             <br/>
-            <a href="{{ url_for('user.forgot_password') }}" tabindex='190'>
+            <a href="{{config.PREFIX}}{{ url_for('user.forgot_password') }}" tabindex='190'>
             {%trans%}Forgot your Password?{%endtrans%}</a>
         </p>
     {% endif %}
@@ -41,7 +41,7 @@
 <h1>{%trans%}Register{%endtrans%}</h1>
 
 {# ** Register form ** #}
-<form action="{{ url_for('user.register') }}" method="POST" novalidate formnovalidate class="form" role="form">
+<form action="{{config.PREFIX}}{{ url_for('user.register') }}" method="POST" novalidate formnovalidate class="form" role="form">
     {{ register_form.hidden_tag() }}
 
     {# Username or Email #}

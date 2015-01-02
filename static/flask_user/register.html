@@ -4,7 +4,7 @@
 {% from "flask_user/_macros.html" import render_field, render_submit_field %}
 <h1>{%trans%}Register{%endtrans%}</h1>
 
-<form action="" method="POST" novalidate formnovalidate class="form" role="form">
+<form action="{{config.PREFIX}}" method="POST" novalidate formnovalidate class="form" role="form">
     {{ form.hidden_tag() }}
 
     {# Username or Email #}
@@ -17,7 +17,7 @@
             </div>
             <div class="col-xs-6 text-right">
                 {% if user_manager.enable_register %}
-                    <a href="{{ url_for('user.login') }}" tabindex='290'>
+                    <a href="{{config.PREFIX}}{{ url_for('user.login') }}" tabindex='290'>
                         {%trans%}Already registered? Sign in.{%endtrans%}</a>
                 {% endif %}
             </div>

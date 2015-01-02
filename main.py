@@ -10,12 +10,15 @@ import ast
 from flask_wtf import Form
 from wtforms import StringField, SubmitField, validators
 
+
+
 class ConfigClass(object):
     # Flask settings
     SECRET_KEY =              os.getenv('SECRET_KEY',       'THIS IS AN INSECURE SECRET')
     DEBUG = 				  os.getenv('DEBUG', 			True)
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL',     'sqlite:///basic_app.sqlite')
     CSRF_ENABLED = True
+    PREFIX = ""#/nflplayoffchallenge" #Set a url prefix (bar) to run at foo.com/bar
 
     # Flask-Mail settings
     MAIL_USERNAME =           os.getenv('MAIL_USERNAME',        'nflplayoffchallenge@samgiagtzoglou.com')
@@ -33,8 +36,10 @@ class ConfigClass(object):
 
 app = Flask(__name__, static_folder="static", template_folder="static")
 app.config.from_object(__name__+'.ConfigClass')
+app.config["APPLICATION_ROOT"] = "/nflplayoffchallenge"
 db = SQLAlchemy(app)
 mail = Mail(app)
+# g.runlocally = "/nflplayoffchallenge"
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
