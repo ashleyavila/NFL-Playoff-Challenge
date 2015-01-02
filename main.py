@@ -18,7 +18,7 @@ class ConfigClass(object):
     DEBUG = 				  os.getenv('DEBUG', 			True)
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL',     'sqlite:///basic_app.sqlite')
     CSRF_ENABLED = True
-    PREFIX = ""#/nflplayoffchallenge" #Set a url prefix (bar) to run at foo.com/bar
+    PREFIX = "/nflplayoffchallenge" #Set a url prefix (bar) to run at foo.com/bar
 
     # Flask-Mail settings
     MAIL_USERNAME =           os.getenv('MAIL_USERNAME',        'nflplayoffchallenge@samgiagtzoglou.com')
@@ -36,7 +36,7 @@ class ConfigClass(object):
 
 app = Flask(__name__, static_folder="static", template_folder="static")
 app.config.from_object(__name__+'.ConfigClass')
-app.config["APPLICATION_ROOT"] = "/nflplayoffchallenge"
+
 db = SQLAlchemy(app)
 mail = Mail(app)
 # g.runlocally = "/nflplayoffchallenge"

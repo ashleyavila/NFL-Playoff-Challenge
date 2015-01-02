@@ -30,7 +30,7 @@
 {% endfor %}
 </table>
 
-<form action="" method="POST" class="form" role="form">
+<form action="{{config.PREFIX}}{{ url_for('user.manage_emails') }}" method="POST" class="form" role="form">
     {{ form.hidden_tag() }}
     {{ render_field(form.email) }}
     {{ render_submit_field(form.submit) }}
