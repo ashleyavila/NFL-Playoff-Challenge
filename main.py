@@ -106,24 +106,12 @@ def login():
 def submit():
 	form = PickForm(request.form, current_user)
 	if request.method == 'POST':
-		print 'tried'
-		current_user.picks = cleanForm(form.picks.data)
-		# form.populate_obj(current_user)
-		db.session.commit()
-		# picks = ast.literal_eval(request.form['picks'])
-		# s = {1:{},2:{},3:{},4:{},}
-		# for pick in picks.keys():
-		# 	print pick
-		# 	week = int(pick[4])
-		# 	game = int(pick[6])
-		# 	team = int(pick[8])
-		# 	points = int(picks[pick])
-		# 	print str(week), ' ',  game,  ' ',  team,  ' ',  points
-		# 	if points > 0:
-		# 		s[week][game] = [team, points]
-		# print s
-		# request
-	return render_template('index.html', picks=convertPicks(current_user.picks), username=current_user.username, submission="Successfully submitted")
+		print form.picks.data
+		if validatePicks(form.picks.data):
+			current_user.picks = cleanForm(form.picks.data)
+			db.session.commit()
+			return render_template('index.html', picks=convertPicks(current_user.picks), username=current_user.username, submission="Successfully submitted")
+		return render_template('index.html', picks=convertPicks(current_user.picks), username=current_user.username, submission="Picks were not valid")
 
 @app.route("/leaderboard", methods=['GET'])
 @login_required
@@ -151,6 +139,17 @@ def calculateScore(picks):
 			if r in correctPicks[p] and correctPicks[p][r][0] == picks[p][r][0]:
 				score += picks[p][r][1]
 	return score
+
+def validatePicks(picks):
+	picks = ast.literal_eval(picks)
+	# picks = {1: {1:[2,5],2:[1,3],3:[2,2],4:[2,7]}, 2: {}, 3: {}, 4: {}}
+	used = []
+	for p in picks.keys():
+		points = int(picks[p])
+		if points in used:
+			return False
+		used.append(points)
+	return True
 
 def cleanForm(i):
 	print i
