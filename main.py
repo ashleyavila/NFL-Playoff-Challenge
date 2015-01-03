@@ -157,7 +157,7 @@ def validatePicks(picks):
 
 def cleanForm(i,oldPicks):
 	print i
-	oldPicks = ast.literal_eval(oldPicks) if not oldPicks else {1:{},2:{},3:{},4:{}}
+	oldPicks = ast.literal_eval(oldPicks) if oldPicks else {1:{},2:{},3:{},4:{}}
 	picks = ast.literal_eval(i)
 	s = {1:{},2:{},3:{},4:{}}
 	times = {1:{1:"1/4/15 1:05PM", 2:"1/3/15 8:15PM", 3:"1/3/15 4:35PM",4:"1/4/15 4:40PM"},2:{1:"4/4/15 4:40PM", 2:"4/4/15 4:40PM", 3:"4/4/15 4:40PM",4:"4/4/15 4:40PM"},3:{1:"4/4/15 4:40PM", 2:"4/4/15 4:40PM"},4:{1:"4/4/15 4:40PM"}}
