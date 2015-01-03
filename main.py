@@ -9,7 +9,7 @@ import os
 import ast
 from flask_wtf import Form
 from wtforms import StringField, SubmitField, validators
-
+import time
 
 
 class ConfigClass(object):
@@ -107,11 +107,12 @@ def submit():
 	form = PickForm(request.form, current_user)
 	if request.method == 'POST':
 		print form.picks.data
-		if validatePicks(form.picks.data):
-			current_user.picks = cleanForm(form.picks.data)
+		valid = validatePicks(form.picks.data)
+		if valid[0]:
+			current_user.picks = cleanForm(form.picks.data, current_user.picks)
 			db.session.commit()
 			return render_template('index.html', picks=convertPicks(current_user.picks), username=current_user.username, submission="Successfully submitted")
-		return render_template('index.html', picks=convertPicks(current_user.picks), username=current_user.username, submission="Picks were not valid")
+		return render_template('index.html', picks=convertPicks(current_user.picks), username=current_user.username, submission="Picks were not valid - "+valid[1])
 
 @app.route("/leaderboard", methods=['GET'])
 @login_required
@@ -143,27 +144,36 @@ def calculateScore(picks):
 def validatePicks(picks):
 	picks = ast.literal_eval(picks)
 	# picks = {1: {1:[2,5],2:[1,3],3:[2,2],4:[2,7]}, 2: {}, 3: {}, 4: {}}
+	
 	used = []
-	for p in picks.keys():
-		points = int(picks[p])
+	for pick in picks.keys():
+		week = int(pick[4])
+		game = int(pick[6])	
+		points = int(picks[pick])
 		if points in used:
-			return False
+			return [False, "Used same point value more than once"]
 		used.append(points)
-	return True
+	return [True]
 
-def cleanForm(i):
+def cleanForm(i,oldPicks):
 	print i
+	oldPicks = ast.literal_eval(oldPicks)
 	picks = ast.literal_eval(i)
 	s = {1:{},2:{},3:{},4:{},}
+	times = {1:{1:"1/4/15 1:05PM", 2:"1/3/15 8:15PM", 3:"1/3/15 4:35PM",4:"1/4/15 4:40PM"},2:{1:"4/4/15 4:40PM", 2:"4/4/15 4:40PM", 3:"4/4/15 4:40PM",4:"4/4/15 4:40PM"},3:{1:"4/4/15 4:40PM", 2:"4/4/15 4:40PM"},4:{1:"4/4/15 4:40PM"}}
 	for pick in picks.keys():
 		print pick
 		week = int(pick[4])
 		game = int(pick[6])
 		team = int(pick[8])
+		gameTime = time.strptime(times[week][game], "%m/%d/%y %I:%M%p")
 		points = int(picks[pick])
 		print str(week), ' ',  game,  ' ',  team,  ' ',  points
 		if points > 0:
-			s[week][game] = [team, points]
+			if gameTime >= time.localtime():
+				s[week][game] = [team, points]
+			else:
+				s[week][game] = oldPicks[week][game]
 	return str(s)
 
 def convertPicks(old):
