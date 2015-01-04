@@ -149,6 +149,8 @@ def getPastPicks(picks):
 				if gameTime < time.localtime():
 					if picks[week][game][0] == CORRECTPICKS[week][game]:
 						pastPicks.append(picks[week][game][1])
+					elif CORRECTPICKS[week][game] == 0:
+						pastPicks.append(str(picks[week][game][0])+":("+str(picks[week][game][1])+")")
 					else:
 						pastPicks.append("("+str(picks[week][game][1])+")")
 				else:
