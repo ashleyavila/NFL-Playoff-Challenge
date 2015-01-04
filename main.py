@@ -10,7 +10,10 @@ import ast
 from flask_wtf import Form
 from wtforms import StringField, SubmitField, validators
 import time
+import operator
 
+TIMES = {1:{1:"1/4/15 1:05PM", 2:"1/3/15 8:15PM", 3:"1/3/15 4:35PM",4:"1/4/15 4:40PM"},2:{1:"4/4/15 4:40PM", 2:"4/4/15 4:40PM", 3:"4/4/15 4:40PM",4:"4/4/15 4:40PM"},3:{1:"4/4/15 4:40PM", 2:"4/4/15 4:40PM"},4:{1:"4/4/15 4:40PM"}}
+CORRECTPICKS = {1: {1:0,2:0,3:1,4:0}, 2: {1:0,2:0,3:0,4:0}, 3: {1:0,2:0}, 4: {1:0}}
 
 class ConfigClass(object):
     # Flask settings
@@ -123,9 +126,37 @@ def leaderboard():
 def getLeaderboard(group):
 	leaderboard = {}
 	users = User.query.filter(User.group == group).all()
+	print users
+	# users2 = sorted(users, key=calculateScore(str(operator.itemgetter('picks'))))
+
 	for user in users:
-		leaderboard[user.username] = calculateScore(user.picks)
+		leaderboard[user.username] = [calculateScore(user.picks)] + getPastPicks(user.picks)
 	return leaderboard
+
+def getPastPicks(picks):
+	itera = {1: {1:0,2:0,3:0,4:0}, 2: {1:0,2:0,3:0,4:0}, 3: {1:0,2:0}, 4: {1:0}}
+	pastPicks = []#{1: {}, 2: {}, 3: {}, 4: {}}
+	if type(picks) is unicode:
+		picks = ast.literal_eval(picks)
+	if not picks:
+		picks = {1: {}, 2: {}, 3: {}, 4: {}}
+	for week in itera.keys():
+		for game in itera[week].keys():
+			# team = int(pick[8])
+			if game in picks[week].keys():
+				gameTime = time.strptime(TIMES[week][game], "%m/%d/%y %I:%M%p")
+				if gameTime < time.localtime():
+					if picks[week][game][0] == CORRECTPICKS[week][game]:
+						pastPicks.append(picks[week][game][1])
+					else:
+						pastPicks.append("("+str(picks[week][game][1])+")")
+				else:
+					pastPicks.append("?")
+			else:
+				pastPicks.append(" ")
+					# pastPicks[week][game] = picks[week][game]
+	return pastPicks
+
 
 def calculateScore(picks):
 	if type(picks) is unicode:
@@ -134,10 +165,10 @@ def calculateScore(picks):
 		return 0
 	score = 0
 	# picks = {1: {1:[2,5],2:[1,3],3:[2,2],4:[2,7]}, 2: {}, 3: {}, 4: {}}
-	correctPicks = {1: {}, 2: {}, 3: {}, 4: {}}
+	
 	for p in picks.keys():
 		for r in picks[p].keys():
-			if r in correctPicks[p] and correctPicks[p][r][0] == picks[p][r][0]:
+			if r in CORRECTPICKS[p] and CORRECTPICKS[p][r] == picks[p][r][0]:
 				score += picks[p][r][1]
 	return score
 
@@ -160,13 +191,13 @@ def cleanForm(i,oldPicks):
 	oldPicks = ast.literal_eval(oldPicks) if oldPicks else {1:{},2:{},3:{},4:{}}
 	picks = ast.literal_eval(i)
 	s = {1:{},2:{},3:{},4:{}}
-	times = {1:{1:"1/4/15 1:05PM", 2:"1/3/15 8:15PM", 3:"1/3/15 4:35PM",4:"1/4/15 4:40PM"},2:{1:"4/4/15 4:40PM", 2:"4/4/15 4:40PM", 3:"4/4/15 4:40PM",4:"4/4/15 4:40PM"},3:{1:"4/4/15 4:40PM", 2:"4/4/15 4:40PM"},4:{1:"4/4/15 4:40PM"}}
+	
 	for pick in picks.keys():
 		print pick
 		week = int(pick[4])
 		game = int(pick[6])
 		team = int(pick[8])
-		gameTime = time.strptime(times[week][game], "%m/%d/%y %I:%M%p")
+		gameTime = time.strptime(TIMES[week][game], "%m/%d/%y %I:%M%p")
 		points = int(picks[pick])
 		print str(week), ' ',  game,  ' ',  team,  ' ',  points
 		if points > 0:
