@@ -1,4 +1,5 @@
 var picks = JSON.parse($('#picksHolder').prop("value"));
+var correctpicks = JSON.parse($('#correctpicksHolder').prop("value"));
 
 $(".input-group").click(function(){
 	var pick = $(this).parent().attr("id");
@@ -29,11 +30,20 @@ $(".dropdown-menu li a").click(function(){
 
 function setup() {
 	
-	console.log(picks)
+	console.log(correctpicks)
 	for(var pick in picks) {
 		$('#'+pick).addClass("selected");
 		$('#'+pick).find('.dropdown-toggle').html(picks[pick] + ' <span class="caret"></span>')
 		$('#'+pick).find('button').prop('disabled', false);
+		var week = pick[4];
+		var game = pick[6];
+		var team = pick[8];
+		if(correctpicks[week][game] == team){
+			$('#'+pick).addClass("correct");
+		}
+		else if(correctpicks[week][game] != 0 && correctpicks[week][game] != team){
+			$('#'+pick).addClass("incorrect");
+		}
 
 	}
 }

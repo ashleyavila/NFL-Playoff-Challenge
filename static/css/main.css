@@ -27,12 +27,22 @@ td .form-control:hover {
 }
 
 .selected .form-control {
+	background-color:#CECECE;
+	color:white;
+}
+
+.correct .form-control {
 	background-color:#7AD984;
 	color:white;
 }
 
+.incorrect .form-control {
+	background-color:#CF2100;
+	color:white;
+}
+
 .selected .form-control:hover {
-	background-color:#64B46C;
+	background-color:#B9B9B9;
 	color:white;
 }
 .dropdown-menu-right {
