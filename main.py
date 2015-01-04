@@ -131,7 +131,7 @@ def getLeaderboard(group):
 	# users2 = sorted(users, key=calculateScore(str(operator.itemgetter('picks'))))
 
 	for user in users:
-		leaderboard[user.username] = [calculateScore(user.picks)] + getPastPicks(user.picks)
+		leaderboard[user.username] = [calculateScore(user.picks), calculatePossible(user.picks)] + getPastPicks(user.picks)
 	return leaderboard
 
 def getPastPicks(picks):
@@ -171,6 +171,20 @@ def calculateScore(picks):
 		for r in picks[p].keys():
 			if r in CORRECTPICKS[p] and CORRECTPICKS[p][r] == picks[p][r][0]:
 				score += picks[p][r][1]
+	return score
+
+def calculatePossible(picks):
+	if type(picks) is unicode:
+		picks = ast.literal_eval(picks)
+	if not picks:
+		return 0
+	score = 66
+	# picks = {1: {1:[2,5],2:[1,3],3:[2,2],4:[2,7]}, 2: {}, 3: {}, 4: {}}
+	
+	for p in picks.keys():
+		for r in picks[p].keys():
+			if r in CORRECTPICKS[p] and CORRECTPICKS[p][r] !=0 and CORRECTPICKS[p][r] != picks[p][r][0]:
+				score -= picks[p][r][1]
 	return score
 
 def validatePicks(picks):
