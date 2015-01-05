@@ -14,7 +14,7 @@ import operator
 import json
 
 TIMES = {1:{1:"1/4/15 1:05PM", 2:"1/3/15 8:15PM", 3:"1/3/15 4:35PM",4:"1/4/15 4:40PM"},2:{1:"4/4/15 4:40PM", 2:"4/4/15 4:40PM", 3:"4/4/15 4:40PM",4:"4/4/15 4:40PM"},3:{1:"4/4/15 4:40PM", 2:"4/4/15 4:40PM"},4:{1:"4/4/15 4:40PM"}}
-CORRECTPICKS = {1: {1:1,2:2,3:1,4:0}, 2: {1:0,2:0,3:0,4:0}, 3: {1:0,2:0}, 4: {1:0}}
+CORRECTPICKS = {1: {1:1,2:2,3:1,4:1}, 2: {1:0,2:0,3:0,4:0}, 3: {1:0,2:0}, 4: {1:0}}
 
 class ConfigClass(object):
     # Flask settings
@@ -22,7 +22,7 @@ class ConfigClass(object):
     DEBUG = 				  os.getenv('DEBUG', 			True)
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL',     'sqlite:///basic_app.sqlite')
     CSRF_ENABLED = True
-    PREFIX = ""#/nflplayoffchallenge" #Set a url prefix (bar) to run at foo.com/bar
+    PREFIX = "/nflplayoffchallenge" #Set a url prefix (bar) to run at foo.com/bar
 
     # Flask-Mail settings
     MAIL_USERNAME =           os.getenv('MAIL_USERNAME',        'nflplayoffchallenge@samgiagtzoglou.com')
