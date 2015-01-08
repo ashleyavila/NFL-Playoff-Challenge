@@ -13,7 +13,7 @@ import time
 import operator
 import json
 
-TIMES = {1:{1:"1/4/15 1:05PM", 2:"1/3/15 8:15PM", 3:"1/3/15 4:35PM",4:"1/4/15 4:40PM"},2:{1:"4/4/15 4:40PM", 2:"4/4/15 4:40PM", 3:"4/4/15 4:40PM",4:"4/4/15 4:40PM"},3:{1:"4/4/15 4:40PM", 2:"4/4/15 4:40PM"},4:{1:"4/4/15 4:40PM"}}
+TIMES = {1:{1:"1/4/15 1:05PM", 2:"1/3/15 8:15PM", 3:"1/3/15 4:35PM",4:"1/4/15 4:40PM"},2:{1:"1/11/15 4:40PM", 2:"1/10/15 4:35PM", 3:"1/10/15 8:15PM",4:"1/11/15 1:05PM"},3:{1:"4/4/15 4:40PM", 2:"4/4/15 4:40PM"},4:{1:"4/4/15 4:40PM"}}
 CORRECTPICKS = {1: {1:1,2:2,3:1,4:1}, 2: {1:0,2:0,3:0,4:0}, 3: {1:0,2:0}, 4: {1:0}}
 
 class ConfigClass(object):
@@ -99,7 +99,7 @@ def login():
 	# 	username = request.form['username']
 	# 	if username in g.users:
 	# 		if g.users[username].authenticate(request.form['password']):
-	return render_template('index.html', picks=convertPicks(current_user.picks), username=current_user.username,correctpicks=str(json.dumps(CORRECTPICKS)))
+	return render_template('index.html', picks=convertPicks(current_user.picks), username=current_user.username,correctpicks=str(json.dumps(CORRECTPICKS)),times=TIMES)
 	# 		return render_template('login.html',error="Wrong password")
 	# 	return render_template('login.html',error="Not a user")
 	# return render_template('login.html',error="Unknown error logging in")
@@ -115,8 +115,8 @@ def submit():
 		if valid[0]:
 			current_user.picks = cleanForm(form.picks.data, current_user.picks)
 			db.session.commit()
-			return render_template('index.html', picks=convertPicks(current_user.picks), username=current_user.username, submission="Successfully submitted",correctpicks=str(json.dumps(CORRECTPICKS)))
-		return render_template('index.html', picks=convertPicks(current_user.picks), username=current_user.username, submission="Picks were not valid - "+valid[1],correctpicks=str(json.dumps(CORRECTPICKS)))
+			return render_template('index.html', picks=convertPicks(current_user.picks), username=current_user.username, submission="Successfully submitted",correctpicks=str(json.dumps(CORRECTPICKS)),times=TIMES)
+		return render_template('index.html', picks=convertPicks(current_user.picks), username=current_user.username, submission="Picks were not valid - "+valid[1],correctpicks=str(json.dumps(CORRECTPICKS)),times=TIMES)
 
 @app.route("/leaderboard", methods=['GET'])
 @login_required

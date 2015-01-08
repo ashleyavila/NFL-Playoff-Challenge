@@ -23,7 +23,7 @@ td .form-control:hover {
 }
 
 .points-hidden button {
-		visibility: hidden;
+	visibility: hidden;
 }
 
 .selected .form-control {
@@ -44,6 +44,17 @@ td .form-control:hover {
 .selected .form-control:hover {
 	background-color:#B9B9B9;
 	color:white;
+}
+
+.col-md-2.team{
+	position:relative;
+}
+.time-slot{
+	bottom:-8px;
+	width:90%;
+	position: absolute;
+	text-align: center;
+	color:grey;
 }
 .dropdown-menu-right {
 	min-width:0px;
