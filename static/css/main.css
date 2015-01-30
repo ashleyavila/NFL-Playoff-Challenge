@@ -10,71 +10,74 @@ td {
 	cursor:pointer;
 }
 
-/*td .form-control {
-	border-right:none;
-	}*/
-	td .form-control:hover {
-		background-color: #DDDDDD;
-	}
+td .form-control:hover {
+	background-color: #DDDDDD;
+}
 
-	.points-hidden {
-		background-color:white;
-		border-left:none;
-	}
+.points-hidden {
+	background-color:white;
+	border-left:none;
+}
 
-	.points-hidden button {
-		visibility: hidden;
-	}
+.points-hidden button {
+	visibility: hidden;
+}
 
-	.selected .form-control {
-		background-color:#CECECE;
-		color:white;
-	}
+.selected .form-control {
+	background-color:#CECECE;
+	color:white;
+}
 
-	.correct .form-control {
-		background-color:#7AD984;
-		color:white;
-	}
+.correct .form-control {
+	background-color:#7AD984;
+	color:white;
+}
 
-	.incorrect .form-control {
-		background-color:#CF2100;
-		color:white;
-	}
+.incorrect .form-control {
+	background-color:#CF2100;
+	color:white;
+}
 
-	.selected .form-control:hover {
-		background-color:#B9B9B9;
-		color:white;
-	}
+.selected .form-control:hover {
+	background-color:#B9B9B9;
+	color:white;
+}
 
-	.col-md-2.team{
-		position:relative;
-	}
-	.time-slot{
-		bottom:-8px;
-		width:90%;
-		position: absolute;
-		text-align: center;
-		color:grey;
-	}
-	#game5-1time{
-		bottom:40px;
-	}
-	.dropdown-menu-right {
-		min-width:0px;
-	}
+.col-md-2.team {
+	position:relative;
+	min-width:220px;
+}
+.time-slot{
+	bottom:-8px;
+	width:90%;
+	position: absolute;
+	text-align: center;
+	color:grey;
+}
+#game5-1time{
+	bottom:40px;
+}
+.dropdown-menu-right {
+	min-width:0px;
+}
 
-	.input-group-addon {
-		padding: 0px 0px;
-	}
+.input-group-addon {
+	padding: 0px 0px;
+}
 
-	.tiebreaker {
-		width:60%;
-		text-align:center;
-		bottom:-60px;
-		margin-left: 15%;
-		margin-right:20%;
-		position:absolute;
-	}
-	.tiebreaker .input-group-addon {
-		width:75%;
-	}
+.tiebreaker {
+	width:60%;
+	text-align:center;
+	bottom:-60px;
+	margin-left: 15%;
+	margin-right:20%;
+	position:absolute;
+}
+.tiebreaker .input-group-addon {
+	width:75%;
+	min-width:100px;
+}
+.tiebreaker .sbscoreinput {
+	width:43px;
+	color:black;
+}
