@@ -13,8 +13,8 @@ import time
 import operator
 import json
 
-TIMES = {1:{1:"1/4/15 1:05PM", 2:"1/3/15 8:15PM", 3:"1/3/15 4:35PM",4:"1/4/15 4:40PM"},2:{1:"1/11/15 4:40PM", 2:"1/10/15 4:35PM", 3:"1/10/15 8:15PM",4:"1/11/15 1:05PM"},3:{1:"4/4/15 4:40PM", 2:"4/4/15 4:40PM"},4:{1:"4/4/15 4:40PM"}}
-CORRECTPICKS = {1: {1:1,2:2,3:1,4:1}, 2: {1:0,2:1,3:1,4:1}, 3: {1:0,2:0}, 4: {1:0}}
+TIMES = {1:{1:"1/4/15 1:05PM", 2:"1/3/15 8:15PM", 3:"1/3/15 4:35PM",4:"1/4/15 4:40PM"},2:{1:"1/11/15 4:40PM", 2:"1/10/15 4:35PM", 3:"1/10/15 8:15PM",4:"1/11/15 1:05PM"},3:{1:"1/18/15 6:40PM", 2:"1/18/15 3:05PM"},4:{1:"2/1/15 6:30PM"}}
+CORRECTPICKS = {1: {1:1,2:2,3:1,4:1}, 2: {1:2,2:1,3:1,4:1}, 3: {1:2,2:1}, 4: {1:0}}
 
 class ConfigClass(object):
     # Flask settings
@@ -53,7 +53,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(255), nullable=False, server_default='')
     reset_password_token = db.Column(db.String(100), nullable=False, server_default='')
     picks = db.Column(db.String(100), nullable=True)
-    
+    tiebreaker = db.Column(db.String(100), nullable=True)
     # User email information
     # email = db.Column(db.String(255), nullable=False, unique=True)
     # confirmed_at = db.Column(db.DateTime())
@@ -66,6 +66,7 @@ class User(db.Model, UserMixin):
 
 class PickForm(Form):
 	picks = StringField('picks', validators=[validators.DataRequired("An error occurred")])
+	tiebreaker = StringField('tiebreaker')
 	submit = SubmitField('Save')
 
 class GroupRegisterForm(forms.RegisterForm):
@@ -99,7 +100,9 @@ def login():
 	# 	username = request.form['username']
 	# 	if username in g.users:
 	# 		if g.users[username].authenticate(request.form['password']):
-	return render_template('index.html', picks=convertPicks(current_user.picks), username=current_user.username,correctpicks=str(json.dumps(CORRECTPICKS)),times=TIMES)
+	tiebreaker = ast.literal_eval(current_user.tiebreaker) if current_user.tiebreaker else {}
+
+	return render_template('index.html', picks=convertPicks(current_user.picks), username=current_user.username,correctpicks=str(json.dumps(CORRECTPICKS)),times=TIMES, tiebreaker=str(json.dumps(tiebreaker)))
 	# 		return render_template('login.html',error="Wrong password")
 	# 	return render_template('login.html',error="Not a user")
 	# return render_template('login.html',error="Unknown error logging in")
@@ -111,12 +114,14 @@ def submit():
 	form = PickForm(request.form, current_user)
 	if request.method == 'POST':
 		print form.picks.data
+		print form.tiebreaker.data
 		valid = validatePicks(form.picks.data)
-		if valid[0]:
+		if valid[0] and time.strptime(TIMES[4][1], "%m/%d/%y %I:%M%p") >= time.localtime():
 			current_user.picks = cleanForm(form.picks.data, current_user.picks)
+			current_user.tiebreaker = str(form.tiebreaker.data)
 			db.session.commit()
-			return render_template('index.html', picks=convertPicks(current_user.picks), username=current_user.username, submission="Successfully submitted",correctpicks=str(json.dumps(CORRECTPICKS)),times=TIMES)
-		return render_template('index.html', picks=convertPicks(current_user.picks), username=current_user.username, submission="Picks were not valid - "+valid[1],correctpicks=str(json.dumps(CORRECTPICKS)),times=TIMES)
+			return render_template('index.html', picks=convertPicks(current_user.picks), username=current_user.username, submission="Successfully submitted",correctpicks=str(json.dumps(CORRECTPICKS)),times=TIMES, tiebreaker=str(json.dumps(ast.literal_eval(current_user.tiebreaker))))
+		return render_template('index.html', picks=convertPicks(current_user.picks), username=current_user.username, submission="Picks were not valid",correctpicks=str(json.dumps(CORRECTPICKS)),times=TIMES, tiebreaker=str(json.dumps(ast.literal_eval(current_user.tiebreaker))))
 
 @app.route("/leaderboard", methods=['GET'])
 @login_required
@@ -131,7 +136,10 @@ def getLeaderboard(group):
 	# users2 = sorted(users, key=calculateScore(str(operator.itemgetter('picks'))))
 
 	for user in users:
-		leaderboard[user.username] = [calculateScore(user.picks), calculatePossible(user.picks)] + getPastPicks(user.picks)
+		tieb = str(str(ast.literal_eval(user.tiebreaker)["1"])+":"+str(ast.literal_eval(user.tiebreaker)["2"])) if user.tiebreaker else ""
+		if tieb and time.strptime(TIMES[4][1], "%m/%d/%y %I:%M%p") >= time.localtime():
+			tieb = "?:?"
+		leaderboard[user.username] = [calculateScore(user.picks), calculatePossible(user.picks)] + getPastPicks(user.picks) + [tieb]
 	return leaderboard
 
 def getPastPicks(picks):

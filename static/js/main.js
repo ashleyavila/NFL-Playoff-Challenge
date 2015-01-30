@@ -1,5 +1,6 @@
 var picks = JSON.parse($('#picksHolder').prop("value"));
 var correctpicks = JSON.parse($('#correctpicksHolder').prop("value"));
+var tiebreakers = JSON.parse($('#tiebreakerHolder').prop("value"));
 
 $(".input-group").click(function(){
 	var pick = $(this).parent().attr("id");
@@ -28,9 +29,17 @@ $(".dropdown-menu li a").click(function(){
   $('#picksHolder').prop("value", JSON.stringify(picks));
 });
 
+$(".sbscoreinput").keyup(function(){
+	var score = parseInt($(this).val())
+	tiebreakers[$(this).prop('id').slice(-1)] = score
+	console.log(tiebreakers)
+	$('#tiebreakerHolder').prop("value", JSON.stringify(tiebreakers));
+})
+
 function setup() {
 	
 	console.log(correctpicks)
+	console.log(tiebreakers)
 	for(var pick in picks) {
 		$('#'+pick).addClass("selected");
 		$('#'+pick).find('.dropdown-toggle').html(picks[pick] + ' <span class="caret"></span>')
@@ -46,6 +55,8 @@ function setup() {
 		}
 
 	}
+	$('#sbscore1').val(tiebreakers["1"])
+	$('#sbscore2').val(tiebreakers["2"])
 }
 
 setup()
