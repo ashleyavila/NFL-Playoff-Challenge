@@ -1,6 +1,6 @@
 git stash
 git pull
-git stash apply
+git stash pop
 killall gunicorn
 gunicorn main:app &
 
