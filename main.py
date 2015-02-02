@@ -136,7 +136,9 @@ def getLeaderboard(group):
 	# users2 = sorted(users, key=calculateScore(str(operator.itemgetter('picks'))))
 
 	for user in users:
-		tieb = str(str(ast.literal_eval(user.tiebreaker)["1"])+":"+str(ast.literal_eval(user.tiebreaker)["2"])) if user.tiebreaker else ""
+		if (user.tiebreaker is not None) and user.tiebreaker != "{}":
+			print user.tiebreaker
+			tieb = str(str(ast.literal_eval(user.tiebreaker)["1"])+":"+str(ast.literal_eval(user.tiebreaker)["2"])) if user.tiebreaker else ""
 		if tieb and time.strptime(TIMES[4][1], "%m/%d/%y %I:%M%p") >= time.localtime():
 			tieb = "?:?"
 		leaderboard[user.username] = [calculateScore(user.picks), calculatePossible(user.picks)] + getPastPicks(user.picks) + [tieb]
