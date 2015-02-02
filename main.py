@@ -16,6 +16,8 @@ import json
 TIMES = {1:{1:"1/4/15 1:05PM", 2:"1/3/15 8:15PM", 3:"1/3/15 4:35PM",4:"1/4/15 4:40PM"},2:{1:"1/11/15 4:40PM", 2:"1/10/15 4:35PM", 3:"1/10/15 8:15PM",4:"1/11/15 1:05PM"},3:{1:"1/18/15 6:40PM", 2:"1/18/15 3:05PM"},4:{1:"2/1/15 6:30PM"}}
 CORRECTPICKS = {1: {1:1,2:2,3:1,4:1}, 2: {1:2,2:1,3:1,4:1}, 3: {1:2,2:1}, 4: {1:1}}
 
+TIEBREAK_USERNAMES = ['jjweiss']
+
 class ConfigClass(object):
     # Flask settings
     SECRET_KEY =              os.getenv('SECRET_KEY',       'THIS IS AN INSECURE SECRET')
@@ -137,11 +139,13 @@ def getLeaderboard(group):
 
 	for user in users:
 		if (user.tiebreaker is not None) and user.tiebreaker != "{}":
-			print user.tiebreaker
 			tieb = str(str(ast.literal_eval(user.tiebreaker)["1"])+":"+str(ast.literal_eval(user.tiebreaker)["2"])) if user.tiebreaker else ""
 		if tieb and time.strptime(TIMES[4][1], "%m/%d/%y %I:%M%p") >= time.localtime():
 			tieb = "?:?"
-		leaderboard[user.username] = [calculateScore(user.picks), calculatePossible(user.picks)] + getPastPicks(user.picks) + [tieb]
+		score = calculateScore(user.picks)
+		if user.username in TIEBREAK_USERNAMES:
+			score = score + .1
+		leaderboard[user.username] = [score, calculatePossible(user.picks)] + getPastPicks(user.picks) + [tieb]
 	return leaderboard
 
 def getPastPicks(picks):
