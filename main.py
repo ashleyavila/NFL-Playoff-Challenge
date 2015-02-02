@@ -13,10 +13,10 @@ import time
 import operator
 import json
 
-TIMES = {1:{1:"1/4/15 1:05PM", 2:"1/3/15 8:15PM", 3:"1/3/15 4:35PM",4:"1/4/15 4:40PM"},2:{1:"1/11/15 4:40PM", 2:"1/10/15 4:35PM", 3:"1/10/15 8:15PM",4:"1/11/15 1:05PM"},3:{1:"1/18/15 6:40PM", 2:"1/18/15 3:05PM"},4:{1:"2/1/15 6:30PM"}}
-CORRECTPICKS = {1: {1:1,2:2,3:1,4:1}, 2: {1:2,2:1,3:1,4:1}, 3: {1:2,2:1}, 4: {1:1}}
+TIMES = {1:{1:"1/4/15 1:05PM", 2:"1/3/15 8:15PM", 3:"1/3/15 4:35PM",4:"1/4/15 4:40PM"},2:{1:"1/11/15 4:40PM", 2:"1/10/15 4:35PM", 3:"1/10/15 8:15PM",4:"1/11/15 1:05PM"},3:{1:"1/18/15 6:40PM", 2:"1/18/15 3:05PM"},4:{1:"2/1/15 6:30PM"}} #Times of kickoffs
+CORRECTPICKS = {1: {1:1,2:2,3:1,4:1}, 2: {1:2,2:1,3:1,4:1}, 3: {1:2,2:1}, 4: {1:1}} #The actual outcomes of games
 
-TIEBREAK_USERNAMES = ['jjweiss']
+TIEBREAK_USERNAMES = [] #Usernames that should get a .1 boost for tiebreaking
 
 class ConfigClass(object):
     # Flask settings
@@ -24,18 +24,10 @@ class ConfigClass(object):
     DEBUG = 				  os.getenv('DEBUG', 			True)
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL',     'sqlite:///basic_app.sqlite')
     CSRF_ENABLED = True
-    PREFIX = "/nflplayoffchallenge" #Set a url prefix (bar) to run at foo.com/bar
-
-    # Flask-Mail settings
-    MAIL_USERNAME =           os.getenv('MAIL_USERNAME',        'nflplayoffchallenge@samgiagtzoglou.com')
-    MAIL_PASSWORD =           os.getenv('MAIL_PASSWORD',        '')
-    MAIL_DEFAULT_SENDER =     os.getenv('MAIL_DEFAULT_SENDER',  '"NFL Playoff Challenge" <nflplayoffchallenge@samgiagtzoglou.com>')
-    MAIL_SERVER =             os.getenv('MAIL_SERVER',          'personal.samgiagtzoglou.com')
-    MAIL_PORT =           int(os.getenv('MAIL_PORT',            '25'))
-    MAIL_USE_SSL =        int(os.getenv('MAIL_USE_SSL',         False))
+    PREFIX = ""#/nflplayoffchallenge" #Set a url prefix (bar) to run at foo.com/bar
 
     # Flask-User settings
-    USER_APP_NAME        = "NFL Playoff Challenge"                # Used by email templates
+    USER_APP_NAME        = "NFL Playoff Challenge"
     USER_ENABLE_EMAIL              = os.getenv('USER_ENABLE_EMAIL', False)
     USER_AFTER_LOGIN_ENDPOINT = 'login'
     USER_AFTER_LOGOUT_ENDPOINT = ''
@@ -45,7 +37,6 @@ app.config.from_object(__name__+'.ConfigClass')
 
 db = SQLAlchemy(app)
 mail = Mail(app)
-# g.runlocally = "/nflplayoffchallenge"
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -56,11 +47,7 @@ class User(db.Model, UserMixin):
     reset_password_token = db.Column(db.String(100), nullable=False, server_default='')
     picks = db.Column(db.String(100), nullable=True)
     tiebreaker = db.Column(db.String(100), nullable=True)
-    # User email information
-    # email = db.Column(db.String(255), nullable=False, unique=True)
-    # confirmed_at = db.Column(db.DateTime())
-
-    # User information
+    
     active = db.Column('is_active', db.Boolean(), nullable=False, server_default='0')
     group = db.Column(db.String(100), nullable=False, server_default='')
     first_name = db.Column(db.String(100), nullable=False, server_default='')
@@ -74,40 +61,21 @@ class PickForm(Form):
 class GroupRegisterForm(forms.RegisterForm):
 	group = StringField('Group', validators=[validators.DataRequired("A group name is required")])
 
-# Create all database tables
-db.create_all()
+db.create_all() # Create all database tables
 # Setup Flask-User
 db_adapter = SQLAlchemyAdapter(db, User)        # Register the User model
 user_manager = UserManager(db_adapter, app, register_form=GroupRegisterForm)     # Initialize Flask-User
 
-# @app.before_request
-# def init_users():
-# 	admin = AuthUser(username='admin')
-# 	admin.set_and_encrypt_password('password')
-# 	g.users = {'admin':admin}
-
 @app.route("/")
 def main():
 	return redirect('/user/sign-in')
-	# return render_template('login.html')
 
 
 @app.route("/login", methods=['POST','GET'])
 @login_required
 def login():
-	# return render_template('index.html', username=username)
-
-	# error = None
-	# if request.method == 'POST':
-	# 	username = request.form['username']
-	# 	if username in g.users:
-	# 		if g.users[username].authenticate(request.form['password']):
 	tiebreaker = ast.literal_eval(current_user.tiebreaker) if current_user.tiebreaker else {}
-
 	return render_template('index.html', picks=convertPicks(current_user.picks), username=current_user.username,correctpicks=str(json.dumps(CORRECTPICKS)),times=TIMES, tiebreaker=str(json.dumps(tiebreaker)))
-	# 		return render_template('login.html',error="Wrong password")
-	# 	return render_template('login.html',error="Not a user")
-	# return render_template('login.html',error="Unknown error logging in")
 
 
 @app.route("/submit", methods=['POST'])
@@ -134,8 +102,6 @@ def leaderboard():
 def getLeaderboard(group):
 	leaderboard = {}
 	users = User.query.filter(User.group == group).all()
-	print users
-	# users2 = sorted(users, key=calculateScore(str(operator.itemgetter('picks'))))
 
 	for user in users:
 		if (user.tiebreaker is not None) and user.tiebreaker != "{}":
@@ -150,14 +116,13 @@ def getLeaderboard(group):
 
 def getPastPicks(picks):
 	itera = {1: {1:0,2:0,3:0,4:0}, 2: {1:0,2:0,3:0,4:0}, 3: {1:0,2:0}, 4: {1:0}}
-	pastPicks = []#{1: {}, 2: {}, 3: {}, 4: {}}
+	pastPicks = []
 	if type(picks) is unicode:
 		picks = ast.literal_eval(picks)
 	if not picks:
 		picks = {1: {}, 2: {}, 3: {}, 4: {}}
 	for week in itera.keys():
 		for game in itera[week].keys():
-			# team = int(pick[8])
 			if game in picks[week].keys():
 				gameTime = time.strptime(TIMES[week][game], "%m/%d/%y %I:%M%p")
 				if gameTime < time.localtime():
@@ -171,7 +136,6 @@ def getPastPicks(picks):
 					pastPicks.append("?")
 			else:
 				pastPicks.append(" ")
-					# pastPicks[week][game] = picks[week][game]
 	return pastPicks
 
 
@@ -181,8 +145,6 @@ def calculateScore(picks):
 	if not picks:
 		return 0
 	score = 0
-	# picks = {1: {1:[2,5],2:[1,3],3:[2,2],4:[2,7]}, 2: {}, 3: {}, 4: {}}
-	
 	for p in picks.keys():
 		for r in picks[p].keys():
 			if r in CORRECTPICKS[p] and CORRECTPICKS[p][r] == picks[p][r][0]:
@@ -195,8 +157,6 @@ def calculatePossible(picks):
 	if not picks:
 		return 0
 	score = 66
-	# picks = {1: {1:[2,5],2:[1,3],3:[2,2],4:[2,7]}, 2: {}, 3: {}, 4: {}}
-	
 	for p in picks.keys():
 		for r in picks[p].keys():
 			if r in CORRECTPICKS[p] and CORRECTPICKS[p][r] !=0 and CORRECTPICKS[p][r] != picks[p][r][0]:
@@ -205,7 +165,6 @@ def calculatePossible(picks):
 
 def validatePicks(picks):
 	picks = ast.literal_eval(picks)
-	# picks = {1: {1:[2,5],2:[1,3],3:[2,2],4:[2,7]}, 2: {}, 3: {}, 4: {}}
 	
 	used = []
 	for pick in picks.keys():
@@ -222,7 +181,6 @@ def cleanForm(i,oldPicks):
 	oldPicks = ast.literal_eval(oldPicks) if oldPicks else {1:{},2:{},3:{},4:{}}
 	picks = ast.literal_eval(i)
 	s = {1:{},2:{},3:{},4:{}}
-	
 	for pick in picks.keys():
 		print pick
 		week = int(pick[4])
