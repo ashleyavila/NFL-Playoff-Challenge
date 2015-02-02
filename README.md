@@ -1,7 +1,8 @@
 NFL-Playoff-Challenge
 =====================
 
-samgiagtzoglou.com/nflplayoffchallenge
+[Link to live version](samgiagtzoglou.com/nflplayoffchallenge)
+
 A simple site for a NFL playoff challenge, built on Flask.
 
 ##Installation
