@@ -92,7 +92,7 @@ def submit():
 			current_user.tiebreaker = str(form.tiebreaker.data)
 			db.session.commit()
 			return render_template('index.html', picks=convertPicks(current_user.picks), username=current_user.username, submission="Successfully submitted",correctpicks=str(json.dumps(CORRECTPICKS)),times=TIMES, tiebreaker=str(json.dumps(ast.literal_eval(current_user.tiebreaker))))
-		return render_template('index.html', picks=convertPicks(current_user.picks), username=current_user.username, submission="Picks were not valid",correctpicks=str(json.dumps(CORRECTPICKS)),times=TIMES, tiebreaker=str(json.dumps(ast.literal_eval(current_user.tiebreaker))))
+		return render_template('index.html', picks=convertPicks(current_user.picks), username=current_user.username, submission="Picks were not valid",correctpicks=str(json.dumps(CORRECTPICKS)),times=TIMES, tiebreaker=str(json.dumps(ast.literal_eval(current_user.tiebreaker if current_user.tiebreaker else "{}"))))
 
 @app.route("/leaderboard", methods=['GET'])
 @login_required
