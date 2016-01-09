@@ -104,14 +104,16 @@ def getLeaderboard(group):
 	users = User.query.filter(User.group == group).all()
 
 	for user in users:
+		tieb = 0
 		if (user.tiebreaker is not None) and user.tiebreaker != "{}":
 			tieb = str(str(ast.literal_eval(user.tiebreaker)["1"])+":"+str(ast.literal_eval(user.tiebreaker)["2"])) if user.tiebreaker else ""
 			if tieb and time.strptime(TIMES[4][1], "%m/%d/%y %I:%M%p") >= time.localtime():
 				tieb = "?:?"
-			score = calculateScore(user.picks)
-			if user.username in TIEBREAK_USERNAMES:
-				score = score + .1
-			leaderboard[user.username] = [score, calculatePossible(user.picks)] + getPastPicks(user.picks) + [tieb]
+
+		score = calculateScore(user.picks)
+		if user.username in TIEBREAK_USERNAMES:
+			score = score + .1
+		leaderboard[user.username] = [score, calculatePossible(user.picks)] + getPastPicks(user.picks) + [tieb]
 	return leaderboard
 
 def getPastPicks(picks):
