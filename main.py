@@ -101,7 +101,8 @@ def leaderboard():
 
 def getLeaderboard(group):
 	leaderboard = {}
-	users = User.query.filter(User.group == group).all()
+	# users = User.query.filter(User.group == group).all()
+	users = User.query.all()
 
 	for user in users:
 		tieb = 0
