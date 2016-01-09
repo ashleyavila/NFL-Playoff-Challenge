@@ -49,7 +49,7 @@ class User(db.Model, UserMixin):
     tiebreaker = db.Column(db.String(100), nullable=True)
     
     active = db.Column('is_active', db.Boolean(), nullable=False, server_default='0')
-    group = db.Column(db.String(100), nullable=False, server_default='')
+    # group = db.Column(db.String(100), nullable=True, server_default='')
     first_name = db.Column(db.String(100), nullable=False, server_default='')
     last_name = db.Column(db.String(100), nullable=False, server_default='')
 
@@ -59,7 +59,8 @@ class PickForm(Form):
 	submit = SubmitField('Save')
 
 class GroupRegisterForm(forms.RegisterForm):
-	group = StringField('Group', validators=[validators.DataRequired("A group name is required")])
+	print
+	# group = StringField('Group', validators=[validators.DataRequired("A group name is required")])
 
 db.create_all() # Create all database tables
 # Setup Flask-User
@@ -96,8 +97,8 @@ def submit():
 @app.route("/leaderboard", methods=['GET'])
 @login_required
 def leaderboard():
-	leaderboard = getLeaderboard(current_user.group)
-	return render_template('leaderboard.html', group=current_user.group, data=leaderboard)
+	leaderboard = getLeaderboard("current_user.group")
+	return render_template('leaderboard.html', group="current_user.group", data=leaderboard)
 
 def getLeaderboard(group):
 	leaderboard = {}
