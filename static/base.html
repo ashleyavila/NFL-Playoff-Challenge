@@ -30,7 +30,7 @@
     <div id="header-div" class="clearfix with-margins">
         <div class="pull-left"><a href="{{config.PREFIX}}/"><h1 class="no-margins">NFL Playoff Challenge</h1></a></div>
         <div class="pull-right">
-            {% if current_user.is_authenticated() %}
+            {% if current_user.is_authenticated %}
                 <a href="{{config.PREFIX}}{{ url_for('user.profile') }}">{{ current_user.username }}</a>
                 &nbsp; | &nbsp;
                 <a href="{{config.PREFIX}}{{ url_for('user.logout') }}">Sign out</a>
@@ -42,7 +42,7 @@
     {% block menu %}
     <div id="menu-div" class="with-margins">
         <a href="{{config.PREFIX}}/">Home</a>
-        {% if current_user.is_authenticated() %}
+        {% if current_user.is_authenticated %}
             &nbsp; | &nbsp; <a href="{{config.PREFIX}}{{ url_for('user.profile') }}">User profile</a>
             &nbsp; | &nbsp; <a href="{{config.PREFIX}}/leaderboard">Leaderboard</a>
         {% endif %}

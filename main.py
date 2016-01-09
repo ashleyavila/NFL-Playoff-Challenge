@@ -13,8 +13,8 @@ import time
 import operator
 import json
 
-TIMES = {1:{1:"1/4/15 1:05PM", 2:"1/3/15 8:15PM", 3:"1/3/15 4:35PM",4:"1/4/15 4:40PM"},2:{1:"1/11/15 4:40PM", 2:"1/10/15 4:35PM", 3:"1/10/15 8:15PM",4:"1/11/15 1:05PM"},3:{1:"1/18/15 6:40PM", 2:"1/18/15 3:05PM"},4:{1:"2/1/15 6:30PM"}} #Times of kickoffs
-CORRECTPICKS = {1: {1:1,2:2,3:1,4:1}, 2: {1:2,2:1,3:1,4:1}, 3: {1:2,2:1}, 4: {1:1}} #The actual outcomes of games
+TIMES = {1:{1:"1/9/16 8:15PM", 2:"1/9/16 4:35PM", 3:"1/10/16 1:05PM",4:"1/10/16 4:40PM"},2:{1:"1/16/16 4:35PM", 2:"1/17/16 4:40PM", 3:"1/16/16 8:15PM",4:"1/17/16 1:05PM"},3:{1:"1/24/16 3:05PM", 2:"1/24/16 6:40PM"},4:{1:"2/7/16 6:30PM"}} #Times of kickoffs
+CORRECTPICKS = {1: {1:0, 2:0, 3:0, 4:0}, 2: {}, 3: {}, 4: {}} #The actual outcomes of games
 
 TIEBREAK_USERNAMES = [] #Usernames that should get a .1 boost for tiebreaking
 
@@ -106,12 +106,12 @@ def getLeaderboard(group):
 	for user in users:
 		if (user.tiebreaker is not None) and user.tiebreaker != "{}":
 			tieb = str(str(ast.literal_eval(user.tiebreaker)["1"])+":"+str(ast.literal_eval(user.tiebreaker)["2"])) if user.tiebreaker else ""
-		if tieb and time.strptime(TIMES[4][1], "%m/%d/%y %I:%M%p") >= time.localtime():
-			tieb = "?:?"
-		score = calculateScore(user.picks)
-		if user.username in TIEBREAK_USERNAMES:
-			score = score + .1
-		leaderboard[user.username] = [score, calculatePossible(user.picks)] + getPastPicks(user.picks) + [tieb]
+			if tieb and time.strptime(TIMES[4][1], "%m/%d/%y %I:%M%p") >= time.localtime():
+				tieb = "?:?"
+			score = calculateScore(user.picks)
+			if user.username in TIEBREAK_USERNAMES:
+				score = score + .1
+			leaderboard[user.username] = [score, calculatePossible(user.picks)] + getPastPicks(user.picks) + [tieb]
 	return leaderboard
 
 def getPastPicks(picks):
