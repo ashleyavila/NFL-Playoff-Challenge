@@ -13,7 +13,7 @@ import time
 import operator
 import json
 
-TIMES = {1:{1:"1/9/16 8:15PM", 2:"1/9/16 4:35PM", 3:"1/10/16 1:05PM",4:"1/10/16 4:40PM"},2:{1:"1/16/16 4:35PM", 2:"1/17/16 4:40PM", 3:"1/16/16 8:15PM",4:"1/17/16 1:05PM"},3:{1:"1/24/16 3:05PM", 2:"1/24/16 6:40PM"},4:{1:"2/7/16 6:30PM"}} #Times of kickoffs
+TIMES = {1:{1:"1/9/16 8:15PM", 2:"1/9/16 4:35PM", 3:"1/10/16 1:05PM",4:"1/10/16 4:40PM"},2:{1:"1/17/16 4:40PM", 2:"1/16/16 4:35PM", 3:"1/16/16 8:15PM",4:"1/17/16 1:05PM"},3:{1:"1/24/16 3:05PM", 2:"1/24/16 6:40PM"},4:{1:"2/7/16 6:30PM"}} #Times of kickoffs
 CORRECTPICKS = {1: {1:1, 2:1, 3:0, 4:0}, 2: {}, 3: {}, 4: {}} #The actual outcomes of games
 
 TIEBREAK_USERNAMES = [] #Usernames that should get a .1 boost for tiebreaking
