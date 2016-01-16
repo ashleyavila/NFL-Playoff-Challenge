@@ -12,6 +12,8 @@ from wtforms import StringField, SubmitField, validators
 import time
 import operator
 import json
+import logging
+logging.basicConfig(filename='nfl.log',level=logging.DEBUG)
 
 TIMES = {1:{1:"1/9/16 8:15PM", 2:"1/9/16 4:35PM", 3:"1/10/16 1:05PM",4:"1/10/16 4:40PM"},2:{1:"1/17/16 4:40PM", 2:"1/16/16 4:35PM", 3:"1/16/16 8:15PM",4:"1/17/16 1:05PM"},3:{1:"1/24/16 3:05PM", 2:"1/24/16 6:40PM"},4:{1:"2/7/16 6:30PM"}} #Times of kickoffs
 CORRECTPICKS = {1: {1:1, 2:1, 3:1, 4:1}, 2: {1:0, 2:0, 3:0, 4:0}, 3: {1:0, 2:0}, 4: {1:0}} #The actual outcomes of games
@@ -92,6 +94,7 @@ def submit():
 			current_user.tiebreaker = str(form.tiebreaker.data)
 			db.session.commit()
 			return render_template('index.html', picks=convertPicks(current_user.picks), username=current_user.username, submission="Successfully submitted",correctpicks=str(json.dumps(CORRECTPICKS)),times=TIMES, tiebreaker=str(json.dumps(ast.literal_eval(current_user.tiebreaker))))
+		logging.info("Failed to save picks for " + current_user.username + ": " + form.picks.data)
 		return render_template('index.html', picks=convertPicks(current_user.picks), username=current_user.username, submission="Picks were not valid",correctpicks=str(json.dumps(CORRECTPICKS)),times=TIMES, tiebreaker=str(json.dumps(ast.literal_eval(current_user.tiebreaker if current_user.tiebreaker else "{}"))))
 
 @app.route("/leaderboard", methods=['GET'])
