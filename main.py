@@ -178,7 +178,7 @@ def validatePicks(picks):
 		week = int(pick[4])
 		game = int(pick[6])	
 		points = int(picks[pick])
-		if points in used:
+		if points in used and points != 0:
 			return [False, "Used same point value more than once"]
 		used.append(points)
 	return [True]
