@@ -43,7 +43,7 @@ class ConfigClass(object):
     DEBUG = 				  os.getenv('DEBUG', 			True)
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL',     'sqlite:///basic_app.sqlite')
     CSRF_ENABLED = True
-    PREFIX = "/nflplayoffchallenge" #Set a url prefix (bar) to run at foo.com/bar
+    PREFIX = ""#/nflplayoffchallenge" #Set a url prefix (bar) to run at foo.com/bar
 
     # Flask-User settings
     USER_APP_NAME        = "NFL Playoff Challenge"
@@ -63,6 +63,7 @@ class User(db.Model, UserMixin):
     # User authentication information
     username = db.Column(db.String(50), nullable=False, unique=True)
     password = db.Column(db.String(255), nullable=False, server_default='')
+    hasBoughtIn = db.Column(db.Boolean(), nullable=False, server_default='0')
     reset_password_token = db.Column(db.String(100), nullable=False, server_default='')
     picks = db.Column(db.String(100), nullable=True)
     tiebreaker = db.Column(db.String(100), nullable=True)
@@ -95,7 +96,7 @@ def main():
 @login_required
 def login():
 	tiebreaker = ast.literal_eval(current_user.tiebreaker) if current_user.tiebreaker else {}
-	return render_template('index.html', picks=convertPicks(current_user.picks), username=current_user.username,correctpicks=str(json.dumps(CORRECTPICKS)),times=TIMES, tiebreaker=str(json.dumps(tiebreaker)))
+	return render_template('index.html', hasBoughtIn = current_user.hasBoughtIn, picks=convertPicks(current_user.picks), username=current_user.username,correctpicks=str(json.dumps(CORRECTPICKS)),times=TIMES, tiebreaker=str(json.dumps(tiebreaker)))
 
 
 @app.route("/submit", methods=['POST'])
@@ -110,9 +111,9 @@ def submit():
 			current_user.picks = cleanForm(form.picks.data, current_user.picks)
 			current_user.tiebreaker = str(form.tiebreaker.data)
 			db.session.commit()
-			return render_template('index.html', picks=convertPicks(current_user.picks), username=current_user.username, submission="Successfully submitted",correctpicks=str(json.dumps(CORRECTPICKS)),times=TIMES, tiebreaker=str(json.dumps(ast.literal_eval(current_user.tiebreaker))))
+			return render_template('index.html', hasBoughtIn = current_user.hasBoughtIn, picks=convertPicks(current_user.picks), username=current_user.username, submission="Successfully submitted",correctpicks=str(json.dumps(CORRECTPICKS)),times=TIMES, tiebreaker=str(json.dumps(ast.literal_eval(current_user.tiebreaker))))
 		logging.info("Failed to save picks for " + current_user.username + ": " + form.picks.data)
-		return render_template('index.html', picks=convertPicks(current_user.picks), username=current_user.username, submission="Picks were not valid",correctpicks=str(json.dumps(CORRECTPICKS)),times=TIMES, tiebreaker=str(json.dumps(ast.literal_eval(current_user.tiebreaker if current_user.tiebreaker else "{}"))))
+		return render_template('index.html', hasBoughtIn = current_user.hasBoughtIn, picks=convertPicks(current_user.picks), username=current_user.username, submission="Picks were not valid",correctpicks=str(json.dumps(CORRECTPICKS)),times=TIMES, tiebreaker=str(json.dumps(ast.literal_eval(current_user.tiebreaker if current_user.tiebreaker else "{}"))))
 
 @app.route("/leaderboard", methods=['GET'])
 @login_required
