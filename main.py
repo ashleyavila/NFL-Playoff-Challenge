@@ -26,7 +26,7 @@ class ConfigClass(object):
     DEBUG = 				  os.getenv('DEBUG', 			True)
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL',     'sqlite:///basic_app.sqlite')
     CSRF_ENABLED = True
-    PREFIX = ""#"/nflplayoffchallenge" #Set a url prefix (bar) to run at foo.com/bar
+    PREFIX = "/nflplayoffchallenge" #Set a url prefix (bar) to run at foo.com/bar
 
     # Flask-User settings
     USER_APP_NAME        = "NFL Playoff Challenge"
