@@ -17,16 +17,16 @@
               <td class="col-md-2 team" style="visibility:hidden;"><div class="input-group"><div class="form-control"></div><div class="input-group-btn">
                 <button type="button" disabled="true" class="btn btn-sml dropdown-toggle" data-toggle="dropdown" aria-expanded="false">0 <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right" role="menu"><li><a>1</a></li><li><a>2</a></li><li><a>3</a></li><li><a>4</a></li><li><a>5</a></li><li><a>6</a></li><li><a>7</a></li><li><a>8</a></li><li><a>9</a></li><li><a>10</a></li><li><a>11</a></li></ul>
               </div></div></td>
-              <td id="game2-1-1" class="col-md-2 team" rowspan="2"><div class="input-group"><div class="form-control">New England Patriots</div><div class="input-group-btn">
+              <td id="game2-1-1" class="col-md-2 team" rowspan="2"><div class="input-group"><div class="form-control">{{times[2][1]["team1"]}}</div><div class="input-group-btn">
                 <button id="BUTTON" name="BUTTON" type="button" disabled="true" class="btn btn-sml dropdown-toggle" data-toggle="dropdown" aria-expanded="false">0 <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right" role="menu"><li><a>1</a></li><li><a>2</a></li><li><a>3</a></li><li><a>4</a></li><li><a>5</a></li><li><a>6</a></li><li><a>7</a></li><li><a>8</a></li><li><a>9</a></li><li><a>10</a></li><li><a>11</a></li></ul>
-              </div></div><div id="game2-1time" class="time-slot">{{times[2][1]}}</div></td>
-              <td id="game3-1-1" class="col-md-2 team" rowspan="4"><div class="input-group"><div class="form-control"></div><div class="input-group-btn">
+              </div></div><div id="game2-1time" class="time-slot">{{times[2][1]["time"]}}</div></td>
+              <td id="game3-1-1" class="col-md-2 team" rowspan="4"><div class="input-group"><div class="form-control">{{times[3][1]["team1"]}}</div><div class="input-group-btn">
                 <button type="button" disabled="true" class="btn btn-sml dropdown-toggle" data-toggle="dropdown" aria-expanded="false">0 <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right" role="menu"><li><a>1</a></li><li><a>2</a></li><li><a>3</a></li><li><a>4</a></li><li><a>5</a></li><li><a>6</a></li><li><a>7</a></li><li><a>8</a></li><li><a>9</a></li><li><a>10</a></li><li><a>11</a></li></ul>
-              </div></div><div id="game3-1time" class="time-slot">{{times[3][1]}}</div></td></td>
-              <td id="game4-1-1" class="col-md-2 team" rowspan="8"><div class="input-group"><div class="form-control"></div><div class="input-group-btn">
+              </div></div><div id="game3-1time" class="time-slot">{{times[3][1]["time"]}}</div></td></td>
+              <td id="game4-1-1" class="col-md-2 team" rowspan="8"><div class="input-group"><div class="form-control">{{times[4][1]["team1"]}}</div><div class="input-group-btn">
                 <button type="button" disabled="true" class="btn btn-sml dropdown-toggle" data-toggle="dropdown" aria-expanded="false">0 <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right" role="menu"><li><a>1</a></li><li><a>2</a></li><li><a>3</a></li><li><a>4</a></li><li><a>5</a></li><li><a>6</a></li><li><a>7</a></li><li><a>8</a></li><li><a>9</a></li><li><a>10</a></li><li><a>11</a></li></ul>
               </div></div>
-              <div id="game5-1time" class="time-slot">{{times[4][1]}}</div>
+              <div id="game5-1time" class="time-slot">{{times[4][1]["time"]}}</div>
               <div id="tiebreaker" class="tiebreaker">
                 <h5>Tiebreaker</h5>
                 <div class="input-group">
@@ -43,9 +43,9 @@
           <tr>
 
             <td id="game1-1-1" class="col-md-2 team">
-            <div class="input-group"><div class="form-control">Oakland Raiders</div><div class="input-group-btn">
+            <div class="input-group"><div class="form-control">{{times[1][1]["team1"]}}</div><div class="input-group-btn">
               <button type="button" disabled="true" class="btn btn-sml dropdown-toggle" data-toggle="dropdown" aria-expanded="false">0 <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right" role="menu"><li><a>1</a></li><li><a>2</a></li><li><a>3</a></li><li><a>4</a></li><li><a>5</a></li><li><a>6</a></li><li><a>7</a></li><li><a>8</a></li><li><a>9</a></li><li><a>10</a></li><li><a>11</a></li></ul>
-              </div></div><div id="game1-1time" class="time-slot">{{times[1][1]}}</div></td>
+              </div></div><div id="game1-1time" class="time-slot">{{times[1][1]["time"]}}</div></td>
             
           </tr>
           <tr>
@@ -54,12 +54,12 @@
                 <button type="button" disabled="true" class="btn btn-sml dropdown-toggle" data-toggle="dropdown" aria-expanded="false">0 <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right" role="menu"><li><a>1</a></li><li><a>2</a></li><li><a>3</a></li><li><a>4</a></li><li><a>5</a></li><li><a>6</a></li><li><a>7</a></li><li><a>8</a></li><li><a>9</a></li><li><a>10</a></li><li><a>11</a></li></ul>
               </div></div></td>
             </div></div></td>
-            <td id="game2-1-2" class="col-md-2 team" rowspan="2"><div class="input-group"><div class="form-control"></div><div class="input-group-btn">
+            <td id="game2-1-2" class="col-md-2 team" rowspan="2"><div class="input-group"><div class="form-control">{{times[2][1]["team2"]}}</div><div class="input-group-btn">
               <button type="button" disabled="true" class="btn btn-sml dropdown-toggle" data-toggle="dropdown" aria-expanded="false">0 <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right" role="menu"><li><a>1</a></li><li><a>2</a></li><li><a>3</a></li><li><a>4</a></li><li><a>5</a></li><li><a>6</a></li><li><a>7</a></li><li><a>8</a></li><li><a>9</a></li><li><a>10</a></li><li><a>11</a></li></ul>
             </div></div></td>
           </tr>
           <tr>
-            <td id="game1-1-2" class="col-md-2 team"><div class="input-group"><div class="form-control">Houston Texans</div><div class="input-group-btn">
+            <td id="game1-1-2" class="col-md-2 team"><div class="input-group"><div class="form-control">{{times[1][1]["team2"]}}</div><div class="input-group-btn">
               <button type="button" disabled="true" class="btn btn-sml dropdown-toggle" data-toggle="dropdown" aria-expanded="false">0 <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right" role="menu"><li><a>1</a></li><li><a>2</a></li><li><a>3</a></li><li><a>4</a></li><li><a>5</a></li><li><a>6</a></li><li><a>7</a></li><li><a>8</a></li><li><a>9</a></li><li><a>10</a></li><li><a>11</a></li></ul>
             </div></div></td>
           </tr>
@@ -67,29 +67,29 @@
             <td class="col-md-2 team" style="visibility:hidden;"><div class="input-group"><div class="form-control"></div><div class="input-group-btn">
               <button type="button" disabled="true" class="btn btn-sml dropdown-toggle" data-toggle="dropdown" aria-expanded="false">0 <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right" role="menu"><li><a>1</a></li><li><a>2</a></li><li><a>3</a></li><li><a>4</a></li><li><a>5</a></li><li><a>6</a></li><li><a>7</a></li><li><a>8</a></li><li><a>9</a></li><li><a>10</a></li><li><a>11</a></li></ul>
             </div></div></td>
-            <td id="game2-2-1" class="col-md-2 team" rowspan="2"><div class="input-group"><div class="form-control">Kansas City Chiefs</div><div class="input-group-btn">
+            <td id="game2-2-1" class="col-md-2 team" rowspan="2"><div class="input-group"><div class="form-control">{{times[2][2]["team1"]}}</div><div class="input-group-btn">
               <button type="button" disabled="true" class="btn btn-sml dropdown-toggle" data-toggle="dropdown" aria-expanded="false">0 <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right" role="menu"><li><a>1</a></li><li><a>2</a></li><li><a>3</a></li><li><a>4</a></li><li><a>5</a></li><li><a>6</a></li><li><a>7</a></li><li><a>8</a></li><li><a>9</a></li><li><a>10</a></li><li><a>11</a></li></ul>
-            </div></div><div id="game2-2time" class="time-slot">{{times[2][2]}}</div></td></td>
-            <td id="game3-1-2" class="col-md-2 team" rowspan="4"><div class="input-group"><div class="form-control"></div><div class="input-group-btn">
+            </div></div><div id="game2-2time" class="time-slot">{{times[2][2]["time"]}}</div></td></td>
+            <td id="game3-1-2" class="col-md-2 team" rowspan="4"><div class="input-group"><div class="form-control">{{times[3][1]["team2"]}}</div><div class="input-group-btn">
               <button type="button" disabled="true" class="btn btn-sml dropdown-toggle" data-toggle="dropdown" aria-expanded="false">0 <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right" role="menu"><li><a>1</a></li><li><a>2</a></li><li><a>3</a></li><li><a>4</a></li><li><a>5</a></li><li><a>6</a></li><li><a>7</a></li><li><a>8</a></li><li><a>9</a></li><li><a>10</a></li><li><a>11</a></li></ul>
             </div></div></td>
           </tr>
           <tr>
-            <td id="game1-2-1" class="col-md-2 team"><div class="input-group"><div class="form-control">Miami Dolphins</div><div class="input-group-btn">
+            <td id="game1-2-1" class="col-md-2 team"><div class="input-group"><div class="form-control">{{times[1][2]["team1"]}}</div><div class="input-group-btn">
               <button type="button" disabled="true" class="btn btn-sml dropdown-toggle" data-toggle="dropdown" aria-expanded="false">0 <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right" role="menu"><li><a>1</a></li><li><a>2</a></li><li><a>3</a></li><li><a>4</a></li><li><a>5</a></li><li><a>6</a></li><li><a>7</a></li><li><a>8</a></li><li><a>9</a></li><li><a>10</a></li><li><a>11</a></li></ul>
-              </div></div><div id="game1-2time" class="time-slot">{{times[1][2]}}</div></td>
+              </div></div><div id="game1-2time" class="time-slot">{{times[1][2]["time"]}}</div></td>
             
           </tr>
           <tr>
             <td class="col-md-2 team" style="visibility:hidden;"><div class="input-group"><div class="form-control"></div><div class="input-group-btn">
                 <button type="button" disabled="true" class="btn btn-sml dropdown-toggle" data-toggle="dropdown" aria-expanded="false">0 <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right" role="menu"><li><a>1</a></li><li><a>2</a></li><li><a>3</a></li><li><a>4</a></li><li><a>5</a></li><li><a>6</a></li><li><a>7</a></li><li><a>8</a></li><li><a>9</a></li><li><a>10</a></li><li><a>11</a></li></ul>
               </div></div></td>
-            <td id="game2-2-2" class="col-md-2 team" rowspan="2"><div class="input-group"><div class="form-control"></div><div class="input-group-btn">
+            <td id="game2-2-2" class="col-md-2 team" rowspan="2"><div class="input-group"><div class="form-control">{{times[2][2]["team2"]}}</div><div class="input-group-btn">
               <button type="button" disabled="true" class="btn btn-sml dropdown-toggle" data-toggle="dropdown" aria-expanded="false">0 <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right" role="menu"><li><a>1</a></li><li><a>2</a></li><li><a>3</a></li><li><a>4</a></li><li><a>5</a></li><li><a>6</a></li><li><a>7</a></li><li><a>8</a></li><li><a>9</a></li><li><a>10</a></li><li><a>11</a></li></ul>
             </div></div></td>
           </tr>
           <tr>
-            <td id="game1-2-2" class="col-md-2 team"><div class="input-group"><div class="form-control">Pittsburgh Steelers</div><div class="input-group-btn">
+            <td id="game1-2-2" class="col-md-2 team"><div class="input-group"><div class="form-control">{{times[1][2]["team2"]}}</div><div class="input-group-btn">
               <button type="button" disabled="true" class="btn btn-sml dropdown-toggle" data-toggle="dropdown" aria-expanded="false">0 <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right" role="menu"><li><a>1</a></li><li><a>2</a></li><li><a>3</a></li><li><a>4</a></li><li><a>5</a></li><li><a>6</a></li><li><a>7</a></li><li><a>8</a></li><li><a>9</a></li><li><a>10</a></li><li><a>11</a></li></ul>
             </div></div></td>
           </tr>
@@ -97,32 +97,32 @@
             <td class="col-md-2 team" style="visibility:hidden;"><div class="input-group"><div class="form-control"></div><div class="input-group-btn">
               <button type="button" disabled="true" class="btn btn-sml dropdown-toggle" data-toggle="dropdown" aria-expanded="false">0 <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right" role="menu"><li><a>1</a></li><li><a>2</a></li><li><a>3</a></li><li><a>4</a></li><li><a>5</a></li><li><a>6</a></li><li><a>7</a></li><li><a>8</a></li><li><a>9</a></li><li><a>10</a></li><li><a>11</a></li></ul>
             </div></div></td>
-            <td id="game2-3-1" class="col-md-2 team" rowspan="2"><div class="input-group"><div class="form-control">Atlanta Falcons</div><div class="input-group-btn">
+            <td id="game2-3-1" class="col-md-2 team" rowspan="2"><div class="input-group"><div class="form-control">{{times[2][3]["team1"]}}</div><div class="input-group-btn">
               <button type="button" disabled="true" class="btn btn-sml dropdown-toggle" data-toggle="dropdown" aria-expanded="false">0 <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right" role="menu"><li><a>1</a></li><li><a>2</a></li><li><a>3</a></li><li><a>4</a></li><li><a>5</a></li><li><a>6</a></li><li><a>7</a></li><li><a>8</a></li><li><a>9</a></li><li><a>10</a></li><li><a>11</a></li></ul>
-            </div></div><div id="game2-3time" class="time-slot">{{times[2][3]}}</div></td></td>
-            <td id="game3-2-1" class="col-md-2 team" rowspan="4"><div class="input-group"><div class="form-control"></div><div class="input-group-btn">
+            </div></div><div id="game2-3time" class="time-slot">{{times[2][3]["time"]}}</div></td></td>
+            <td id="game3-2-1" class="col-md-2 team" rowspan="4"><div class="input-group"><div class="form-control">{{times[3][2]["team1"]}}</div><div class="input-group-btn">
               <button type="button" disabled="true" class="btn btn-sml dropdown-toggle" data-toggle="dropdown" aria-expanded="false">0 <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right" role="menu"><li><a>1</a></li><li><a>2</a></li><li><a>3</a></li><li><a>4</a></li><li><a>5</a></li><li><a>6</a></li><li><a>7</a></li><li><a>8</a></li><li><a>9</a></li><li><a>10</a></li><li><a>11</a></li></ul>
-            </div></div><div id="game3-2time" class="time-slot">{{times[3][2]}}</div></td></td>
-            <td id="game4-1-2" class="col-md-2 team" rowspan="8"><div class="input-group"><div class="form-control"></div><div class="input-group-btn">
+            </div></div><div id="game3-2time" class="time-slot">{{times[3][2]["time"]}}</div></td></td>
+            <td id="game4-1-2" class="col-md-2 team" rowspan="8"><div class="input-group"><div class="form-control">{{times[4][1]["team2"]}}</div><div class="input-group-btn">
               <button type="button" disabled="true" class="btn btn-sml dropdown-toggle" data-toggle="dropdown" aria-expanded="false">0 <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right" role="menu"><li><a>1</a></li><li><a>2</a></li><li><a>3</a></li><li><a>4</a></li><li><a>5</a></li><li><a>6</a></li><li><a>7</a></li><li><a>8</a></li><li><a>9</a></li><li><a>10</a></li><li><a>11</a></li></ul>
             </div></div></td>
           </tr>
           <tr>
-            <td id="game1-3-1" class="col-md-2 team"><div class="input-group"><div class="form-control">Detroit Lions</div><div class="input-group-btn">
+            <td id="game1-3-1" class="col-md-2 team"><div class="input-group"><div class="form-control">{{times[1][3]["team1"]}}</div><div class="input-group-btn">
               <button type="button" disabled="true" class="btn btn-sml dropdown-toggle" data-toggle="dropdown" aria-expanded="false">0 <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right" role="menu"><li><a>1</a></li><li><a>2</a></li><li><a>3</a></li><li><a>4</a></li><li><a>5</a></li><li><a>6</a></li><li><a>7</a></li><li><a>8</a></li><li><a>9</a></li><li><a>10</a></li><li><a>11</a></li></ul>
-              </div></div><div id="game1-3time" class="time-slot">{{times[1][3]}}</div></td>
+              </div></div><div id="game1-3time" class="time-slot">{{times[1][3]["time"]}}</div></td>
             
           </tr>
           <tr>
             <td class="col-md-2 team" style="visibility:hidden;"><div class="input-group"><div class="form-control"></div><div class="input-group-btn">
                 <button type="button" disabled="true" class="btn btn-sml dropdown-toggle" data-toggle="dropdown" aria-expanded="false">0 <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right" role="menu"><li><a>1</a></li><li><a>2</a></li><li><a>3</a></li><li><a>4</a></li><li><a>5</a></li><li><a>6</a></li><li><a>7</a></li><li><a>8</a></li><li><a>9</a></li><li><a>10</a></li><li><a>11</a></li></ul>
               </div></div></td>
-            <td id="game2-3-2" class="col-md-2 team" rowspan="2"><div class="input-group"><div class="form-control"></div><div class="input-group-btn">
+            <td id="game2-3-2" class="col-md-2 team" rowspan="2"><div class="input-group"><div class="form-control">{{times[2][3]["team2"]}}</div><div class="input-group-btn">
               <button type="button" disabled="true" class="btn btn-sml dropdown-toggle" data-toggle="dropdown" aria-expanded="false">0 <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right" role="menu"><li><a>1</a></li><li><a>2</a></li><li><a>3</a></li><li><a>4</a></li><li><a>5</a></li><li><a>6</a></li><li><a>7</a></li><li><a>8</a></li><li><a>9</a></li><li><a>10</a></li><li><a>11</a></li></ul>
             </div></div></td>
           </tr>
           <tr>
-            <td id="game1-3-2" class="col-md-2 team"><div class="input-group"><div class="form-control">Seattle Seahawks</div><div class="input-group-btn">
+            <td id="game1-3-2" class="col-md-2 team"><div class="input-group"><div class="form-control">{{times[1][3]["team2"]}}</div><div class="input-group-btn">
               <button type="button" disabled="true" class="btn btn-sml dropdown-toggle" data-toggle="dropdown" aria-expanded="false">0 <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right" role="menu"><li><a>1</a></li><li><a>2</a></li><li><a>3</a></li><li><a>4</a></li><li><a>5</a></li><li><a>6</a></li><li><a>7</a></li><li><a>8</a></li><li><a>9</a></li><li><a>10</a></li><li><a>11</a></li></ul>
             </div></div></td>
           </tr>
@@ -130,29 +130,29 @@
             <td class="col-md-2 team" style="visibility:hidden;"><div class="input-group"><div class="form-control"></div><div class="input-group-btn">
               <button type="button" disabled="true" class="btn btn-sml dropdown-toggle" data-toggle="dropdown" aria-expanded="false">0 <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right" role="menu"><li><a>1</a></li><li><a>2</a></li><li><a>3</a></li><li><a>4</a></li><li><a>5</a></li><li><a>6</a></li><li><a>7</a></li><li><a>8</a></li><li><a>9</a></li><li><a>10</a></li><li><a>11</a></li></ul>
             </div></div></td>
-            <td id="game2-4-1" class="col-md-2 team" rowspan="2"><div class="input-group"><div class="form-control">Dallas Cowboys</div><div class="input-group-btn">
+            <td id="game2-4-1" class="col-md-2 team" rowspan="2"><div class="input-group"><div class="form-control">{{times[2][4]["team1"]}}</div><div class="input-group-btn">
               <button type="button" disabled="true" class="btn btn-sml dropdown-toggle" data-toggle="dropdown" aria-expanded="false">0 <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right" role="menu"><li><a>1</a></li><li><a>2</a></li><li><a>3</a></li><li><a>4</a></li><li><a>5</a></li><li><a>6</a></li><li><a>7</a></li><li><a>8</a></li><li><a>9</a></li><li><a>10</a></li><li><a>11</a></li></ul>
-            </div></div><div id="game2-4time" class="time-slot">{{times[2][4]}}</div></td></td>
-            <td id="game3-2-2" class="col-md-2 team" rowspan="4"><div class="input-group"><div class="form-control"></div><div class="input-group-btn">
+            </div></div><div id="game2-4time" class="time-slot">{{times[2][4]["time"]}}</div></td></td>
+            <td id="game3-2-2" class="col-md-2 team" rowspan="4"><div class="input-group"><div class="form-control">{{times[3][2]["team2"]}}</div><div class="input-group-btn">
               <button type="button" disabled="true" class="btn btn-sml dropdown-toggle" data-toggle="dropdown" aria-expanded="false">0 <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right" role="menu"><li><a>1</a></li><li><a>2</a></li><li><a>3</a></li><li><a>4</a></li><li><a>5</a></li><li><a>6</a></li><li><a>7</a></li><li><a>8</a></li><li><a>9</a></li><li><a>10</a></li><li><a>11</a></li></ul>
             </div></div></td>
           </tr>
           <tr>
-            <td id="game1-4-1" class="col-md-2 team"><div class="input-group"><div class="form-control">New York Giants</div><div class="input-group-btn">
+            <td id="game1-4-1" class="col-md-2 team"><div class="input-group"><div class="form-control">{{times[1][4]["team1"]}}</div><div class="input-group-btn">
               <button type="button" disabled="true" class="btn btn-sml dropdown-toggle" data-toggle="dropdown" aria-expanded="false">0 <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right" role="menu"><li><a>1</a></li><li><a>2</a></li><li><a>3</a></li><li><a>4</a></li><li><a>5</a></li><li><a>6</a></li><li><a>7</a></li><li><a>8</a></li><li><a>9</a></li><li><a>10</a></li><li><a>11</a></li></ul>
-              </div></div><div id="game1-4time" class="time-slot">{{times[1][4]}}</div></td>
+              </div></div><div id="game1-4time" class="time-slot">{{times[1][4]["time"]}}</div></td>
             
           </tr>
           <tr>
             <td class="col-md-2 team" style="visibility:hidden;"><div class="input-group"><div class="form-control"></div><div class="input-group-btn">
                 <button type="button" disabled="true" class="btn btn-sml dropdown-toggle" data-toggle="dropdown" aria-expanded="false">0 <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right" role="menu"><li><a>1</a></li><li><a>2</a></li><li><a>3</a></li><li><a>4</a></li><li><a>5</a></li><li><a>6</a></li><li><a>7</a></li><li><a>8</a></li><li><a>9</a></li><li><a>10</a></li><li><a>11</a></li></ul>
               </div></div></td>
-            <td id="game2-4-2" class="col-md-2 team" rowspan="2"><div class="input-group"><div class="form-control"></div><div class="input-group-btn">
+            <td id="game2-4-2" class="col-md-2 team" rowspan="2"><div class="input-group"><div class="form-control">{{times[2][4]["team2"]}}</div><div class="input-group-btn">
               <button type="button" disabled="true" class="btn btn-sml dropdown-toggle" data-toggle="dropdown" aria-expanded="false">0 <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right" role="menu"><li><a>1</a></li><li><a>2</a></li><li><a>3</a></li><li><a>4</a></li><li><a>5</a></li><li><a>6</a></li><li><a>7</a></li><li><a>8</a></li><li><a>9</a></li><li><a>10</a></li><li><a>11</a></li></ul>
             </div></div></td>
           </tr>
           <tr>
-            <td id="game1-4-2" class="col-md-2 team"><div class="input-group"><div class="form-control">Green Bay Packers</div><div class="input-group-btn">
+            <td id="game1-4-2" class="col-md-2 team"><div class="input-group"><div class="form-control">{{times[1][4]["team2"]}}</div><div class="input-group-btn">
               <button type="button" disabled="true" class="btn btn-sml dropdown-toggle" data-toggle="dropdown" aria-expanded="false">0 <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right" role="menu"><li><a>1</a></li><li><a>2</a></li><li><a>3</a></li><li><a>4</a></li><li><a>5</a></li><li><a>6</a></li><li><a>7</a></li><li><a>8</a></li><li><a>9</a></li><li><a>10</a></li><li><a>11</a></li></ul>
             </div></div></td>
           </tr>

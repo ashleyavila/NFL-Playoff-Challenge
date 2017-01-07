@@ -72,20 +72,14 @@
     
     {% endblock %}
 
-    <script src="static/js/vendor/bootstrap.min.js"></script>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-  </body>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.1.min.js"><\/script>')</script>
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    
-    {% if config.PREFIX %}
-    <script src="{{config.PREFIX}}/static/js/main.js"></script>
+    {% if config.PREFIX != ""%}
     <link rel="stylesheet" href="{{config.PREFIX}}/static/css/main.css">
+    <script src="{{config.PREFIX}}/static/js/vendor/jquery-1.11.1.min.js"></script>
+    <script src="{{config.PREFIX}}/static/js/vendor/bootstrap.min.js"></script>
+    <script src="{{config.PREFIX}}/static/js/main.js"></script>
     {% else %}
+    <script src="static/js/vendor/jquery-1.11.1.min.js"></script>
+    <script src="static/js/vendor/bootstrap.min.js"></script>
     <script src="static/js/main.js"></script>
     <link rel="stylesheet" href="static/css/main.css">
     {% endif %}

@@ -15,8 +15,25 @@ import json
 import logging
 logging.basicConfig(filename='nfl.log',level=logging.DEBUG)
 
-TIMES = {1:{1:"1/7/17 4:35PM", 2:"1/8/17 1:05PM", 3:"1/7/17 8:15PM",4:"1/8/17 4:40PM"},2:{1:"1/14/17 8:15PM", 2:"1/15/17 1:05PM", 3:"1/14/17 4:35PM",4:"1/15/17 4:40PM"},3:{1:"1/22/17 3:05PM", 2:"1/22/17 6:40PM"},4:{1:"2/5/17 6:30PM"}} #Times of kickoffs
 CORRECTPICKS = {1: {1:0, 2:0, 3:0, 4:0}, 2: {1:0, 2:0, 3:0, 4:0}, 3: {1:0, 2:0}, 4: {1:0}} #The actual outcomes of games
+
+TEAMS = ["Oakland Raiders", "Houston Texans", "Miami Dolphins", "Pittsburgh Steelers", "Detroit Lions", "Seattle Seahawks", "New York Giants", "Green Bay Packers", "New England Patriots", "Kansas City Chiefs", "Atlanta Falcons", "Dallas Cowboys"]
+TIMES = {
+1:{
+1:{"team1":TEAMS[0],"team2":TEAMS[1],"time":"1/7/17 4:35PM"}, 
+2:{"team1":TEAMS[2],"team2":TEAMS[3],"time":"1/8/17 1:05PM"}, 
+3:{"team1":TEAMS[4],"team2":TEAMS[5],"time":"1/7/17 8:15PM"},
+4:{"team1":TEAMS[6],"team2":TEAMS[7],"time":"1/8/17 4:40PM"}},
+2:{
+1:{"team1":TEAMS[8],"team2":"","time":"1/14/17 8:15PM"}, 
+2:{"team1":TEAMS[9],"team2":"","time":"1/15/17 1:05PM"}, 
+3:{"team1":TEAMS[10],"team2":"","time":"1/14/17 4:35PM"},
+4:{"team1":TEAMS[11],"team2":"","time":"1/15/17 4:40PM"}},
+3:{
+1:{"team1":"","team2":"","time":"1/22/17 3:05PM"}, 
+2:{"team1":"","team2":"","time":"1/22/17 6:40PM"}},
+4:{
+1:{"team1":"","team2":"", "time":"2/5/17 6:30PM"}}} #Times of kickoffs
 
 TIEBREAK_USERNAMES = [] #Usernames that should get a .1 boost for tiebreaking
 
@@ -89,7 +106,7 @@ def submit():
 		print form.picks.data
 		print form.tiebreaker.data
 		valid = validatePicks(form.picks.data)
-		if valid[0] and time.strptime(TIMES[4][1], "%m/%d/%y %I:%M%p") >= time.localtime():
+		if valid[0] and time.strptime(TIMES[4][1]["time"], "%m/%d/%y %I:%M%p") >= time.localtime():
 			current_user.picks = cleanForm(form.picks.data, current_user.picks)
 			current_user.tiebreaker = str(form.tiebreaker.data)
 			db.session.commit()
@@ -112,7 +129,7 @@ def getLeaderboard(group):
 		tieb = 0
 		if (user.tiebreaker is not None) and user.tiebreaker != "{}":
 			tieb = str(str(ast.literal_eval(user.tiebreaker)["1"])+":"+str(ast.literal_eval(user.tiebreaker)["2"])) if user.tiebreaker else ""
-			if tieb and time.strptime(TIMES[4][1], "%m/%d/%y %I:%M%p") >= time.localtime():
+			if tieb and time.strptime(TIMES[4][1]["time"], "%m/%d/%y %I:%M%p") >= time.localtime():
 				tieb = "?:?"
 
 		score = calculateScore(user.picks)
@@ -131,7 +148,7 @@ def getPastPicks(picks):
 	for week in itera.keys():
 		for game in itera[week].keys():
 			if game in picks[week].keys():
-				gameTime = time.strptime(TIMES[week][game], "%m/%d/%y %I:%M%p")
+				gameTime = time.strptime(TIMES[week][game]["time"], "%m/%d/%y %I:%M%p")
 				if gameTime < time.localtime():
 					if picks[week][game][0] == CORRECTPICKS[week][game]:
 						pastPicks.append(picks[week][game][1])
@@ -193,7 +210,7 @@ def cleanForm(i,oldPicks):
 		week = int(pick[4])
 		game = int(pick[6])
 		team = int(pick[8])
-		gameTime = time.strptime(TIMES[week][game], "%m/%d/%y %I:%M%p")
+		gameTime = time.strptime(TIMES[week][game]["time"], "%m/%d/%y %I:%M%p")
 		points = int(picks[pick])
 		print str(week), ' ',  game,  ' ',  team,  ' ',  points
 		if points > 0:
