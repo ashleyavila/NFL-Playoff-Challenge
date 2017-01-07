@@ -18,6 +18,9 @@ td {
 td .form-control:hover {
 	background-color: #DDDDDD;
 }
+#message {
+	color:red;
+}
 #header {
 	margin-left: auto;
 	margin-right: auto;
