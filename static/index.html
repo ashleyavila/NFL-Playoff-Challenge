@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
   <div class="container">
+      <p style="text-align:center;">{{submission}}</p>
+
     <form action='submit' method='post'>
       <div class="row">
         <div class="col-md-12">
@@ -161,7 +163,6 @@
     <input id="correctpicksHolder" type="hidden" name="correctpicks" value="{{correctpicks}}"></input>
     <input id="tiebreakerHolder" type="hidden" name="tiebreaker" value="{{tiebreaker}}"></input>
     <button type='submit' class="btn btn-primary btn-lg btn-block">Submit</button>
-    <p style="text-align:center;">{{submission}}</p>
   </form>
 </div>
 
