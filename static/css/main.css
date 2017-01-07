@@ -1,7 +1,12 @@
 .modal-body{
 	height:250px;
 }
-
+body {
+	font-family: helvetica;
+}
+a {
+	color:#4F4F51;
+}
 th {
 	text-align: center;
 }
@@ -13,7 +18,18 @@ td {
 td .form-control:hover {
 	background-color: #DDDDDD;
 }
-
+#header {
+	margin-left: auto;
+	margin-right: auto;
+	width: 400px;
+	text-align: center;
+}
+#menu-div {
+	width:300px;
+	margin-left:auto;
+	margin-right:auto;
+	text-align:center
+}
 .points-hidden {
 	background-color:white;
 	border-left:none;
@@ -64,7 +80,9 @@ td .form-control:hover {
 .input-group-addon {
 	padding: 0px 0px;
 }
-
+#game1-1time, #game1-2time, #game1-3time, #game1-4time {
+	bottom: -28px;
+}
 .tiebreaker {
 	width:60%;
 	text-align:center;

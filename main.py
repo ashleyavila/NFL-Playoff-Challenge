@@ -15,7 +15,7 @@ import json
 import logging
 logging.basicConfig(filename='nfl.log',level=logging.DEBUG)
 
-TIMES = {1:{1:"1/9/17 8:15PM", 2:"1/9/17 4:35PM", 3:"1/10/17 1:05PM",4:"1/10/17 4:40PM"},2:{1:"1/17/17 4:40PM", 2:"1/17/17 4:35PM", 3:"1/17/17 8:15PM",4:"1/17/17 1:05PM"},3:{1:"1/24/17 3:05PM", 2:"1/24/17 6:40PM"},4:{1:"2/7/17 6:30PM"}} #Times of kickoffs
+TIMES = {1:{1:"1/7/17 4:35PM", 2:"1/8/17 1:05PM", 3:"1/7/17 8:15PM",4:"1/8/17 4:40PM"},2:{1:"1/14/17 8:15PM", 2:"1/15/17 1:05PM", 3:"1/14/17 4:35PM",4:"1/15/17 4:40PM"},3:{1:"1/22/17 3:05PM", 2:"1/22/17 6:40PM"},4:{1:"2/5/17 6:30PM"}} #Times of kickoffs
 CORRECTPICKS = {1: {1:0, 2:0, 3:0, 4:0}, 2: {1:0, 2:0, 3:0, 4:0}, 3: {1:0, 2:0}, 4: {1:0}} #The actual outcomes of games
 
 TIEBREAK_USERNAMES = [] #Usernames that should get a .1 boost for tiebreaking
@@ -26,7 +26,7 @@ class ConfigClass(object):
     DEBUG = 				  os.getenv('DEBUG', 			True)
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL',     'sqlite:///basic_app.sqlite')
     CSRF_ENABLED = True
-    PREFIX = "/nflplayoffchallenge" #Set a url prefix (bar) to run at foo.com/bar
+    PREFIX = ""#"/nflplayoffchallenge" #Set a url prefix (bar) to run at foo.com/bar
 
     # Flask-User settings
     USER_APP_NAME        = "NFL Playoff Challenge"
