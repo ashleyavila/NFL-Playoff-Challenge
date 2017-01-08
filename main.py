@@ -96,7 +96,7 @@ def main():
 @login_required
 def login():
 	tiebreaker = ast.literal_eval(current_user.tiebreaker) if current_user.tiebreaker else {}
-	return render_template('index.html', hasBoughtIn = current_user.hasBoughtIn, picks=convertPicks(current_user.picks), username=current_user.username,correctpicks=str(json.dumps(CORRECTPICKS)),times=TIMES, tiebreaker=str(json.dumps(tiebreaker)))
+	return render_template('index.html', hasBoughtIn = current_user.hasBoughtIn, picks=convertPicks(current_user.picks), username=current_user.username,correctpicks=str(json.dumps(CORRECTPICKS)),times=getCurrentTimes(), tiebreaker=str(json.dumps(tiebreaker)))
 
 
 @app.route("/submit", methods=['POST'])
@@ -111,15 +111,26 @@ def submit():
 			current_user.picks = cleanForm(form.picks.data, current_user.picks)
 			current_user.tiebreaker = str(form.tiebreaker.data)
 			db.session.commit()
-			return render_template('index.html', hasBoughtIn = current_user.hasBoughtIn, picks=convertPicks(current_user.picks), username=current_user.username, submission="Successfully submitted",correctpicks=str(json.dumps(CORRECTPICKS)),times=TIMES, tiebreaker=str(json.dumps(ast.literal_eval(current_user.tiebreaker))))
+			return render_template('index.html', hasBoughtIn = current_user.hasBoughtIn, picks=convertPicks(current_user.picks), username=current_user.username, submission="Successfully submitted",correctpicks=str(json.dumps(CORRECTPICKS)),times=getCurrentTimes(), tiebreaker=str(json.dumps(ast.literal_eval(current_user.tiebreaker))))
 		logging.info("Failed to save picks for " + current_user.username + ": " + form.picks.data)
-		return render_template('index.html', hasBoughtIn = current_user.hasBoughtIn, picks=convertPicks(current_user.picks), username=current_user.username, submission="Picks were not valid",correctpicks=str(json.dumps(CORRECTPICKS)),times=TIMES, tiebreaker=str(json.dumps(ast.literal_eval(current_user.tiebreaker if current_user.tiebreaker else "{}"))))
+		return render_template('index.html', hasBoughtIn = current_user.hasBoughtIn, picks=convertPicks(current_user.picks), username=current_user.username, submission="Picks were not valid",correctpicks=str(json.dumps(CORRECTPICKS)),times=getCurrentTimes(), tiebreaker=str(json.dumps(ast.literal_eval(current_user.tiebreaker if current_user.tiebreaker else "{}"))))
 
 @app.route("/leaderboard", methods=['GET'])
 @login_required
 def leaderboard():
 	leaderboard = getLeaderboard("current_user.group")
 	return render_template('leaderboard.html', group="current_user.group", data=leaderboard)
+
+def getCurrentTimes():
+	times = TIMES
+	for i in TIMES:
+		for j in TIMES[i]:
+			gameTime = time.strptime(TIMES[i][j]["time"], "%m/%d/%y %I:%M%p")
+			if gameTime < time.localtime():
+				TIMES[i][j]["locked"] = True
+			else:
+				TIMES[i][j]["locked"] = False
+	return TIMES
 
 def getLeaderboard(group):
 	leaderboard = {}

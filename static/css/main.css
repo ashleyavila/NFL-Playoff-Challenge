@@ -14,9 +14,12 @@ th {
 td {
 	cursor:pointer;
 }
-
-td .form-control:hover {
-	background-color: #DDDDDD;
+.nocaret {
+	border-color:transparent;
+}
+.selectable .form-control:hover {
+		background-color: #DDDDDD;
+	}
 }
 .message {
 	color:red;

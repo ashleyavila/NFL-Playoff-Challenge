@@ -3,6 +3,9 @@ var correctpicks = JSON.parse($('#correctpicksHolder').prop("value"));
 var tiebreakers = JSON.parse($('#tiebreakerHolder').prop("value"));
 
 $(".input-group").click(function(){
+	if (!$(this).parent().hasClass("selectable")) {
+		return
+	}
 	var pick = $(this).parent().attr("id");
 	var opponent = pick.substring(0,8) + (pick[8]==='1' ?  '2' : '1')
 	
@@ -42,8 +45,14 @@ function setup() {
 	console.log(tiebreakers)
 	for(var pick in picks) {
 		$('#'+pick).addClass("selected");
-		$('#'+pick).find('.dropdown-toggle').html(picks[pick] + ' <span class="caret"></span>')
-		$('#'+pick).find('button').prop('disabled', false);
+		if ($('#'+pick).hasClass("selectable")){
+			$('#'+pick).find('.dropdown-toggle').html(picks[pick] + ' <span class="caret"></span>')
+			$('#'+pick).find('button').prop('disabled', false);
+			$('#'+pick).find('.time-slot').css('color','grey')
+		} else {
+			$('#'+pick).find('.dropdown-toggle').html(picks[pick] + ' <span class="caret nocaret"></span>')
+
+		}
 		var week = pick[4];
 		var game = pick[6];
 		var team = pick[8];
