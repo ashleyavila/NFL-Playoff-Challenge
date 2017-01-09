@@ -48,7 +48,7 @@ function setup() {
 		if ($('#'+pick).hasClass("selectable")){
 			$('#'+pick).find('.dropdown-toggle').html(picks[pick] + ' <span class="caret"></span>')
 			$('#'+pick).find('button').prop('disabled', false);
-			$('#'+pick).find('.time-slot').css('color','grey')
+			// $('#'+pick).find('.time-slot').css('color','grey')
 		} else {
 			$('#'+pick).find('.dropdown-toggle').html(picks[pick] + ' <span class="caret nocaret"></span>')
 
