@@ -15,7 +15,7 @@ import json
 import logging
 logging.basicConfig(filename='nfl.log',level=logging.DEBUG)
 
-CORRECTPICKS = {1: {1:2, 2:2, 3:2, 4:0}, 2: {1:0, 2:0, 3:0, 4:0}, 3: {1:0, 2:0}, 4: {1:0}} #The actual outcomes of games
+CORRECTPICKS = {1: {1:2, 2:2, 3:2, 4:2}, 2: {1:0, 2:0, 3:0, 4:0}, 3: {1:0, 2:0}, 4: {1:0}} #The actual outcomes of games
 
 TEAMS = ["Oakland Raiders", "Houston Texans", "Miami Dolphins", "Pittsburgh Steelers", "Detroit Lions", "Seattle Seahawks", "New York Giants", "Green Bay Packers", "New England Patriots", "Kansas City Chiefs", "Atlanta Falcons", "Dallas Cowboys"]
 TIMES = {
@@ -27,8 +27,8 @@ TIMES = {
 2:{
 1:{"team1":TEAMS[8],"team2":TEAMS[1],"time":"1/14/17 8:15PM"}, 
 2:{"team1":TEAMS[9],"team2":TEAMS[3],"time":"1/15/17 1:05PM"}, 
-3:{"team1":TEAMS[10],"team2":"","time":"1/14/17 4:35PM"},
-4:{"team1":TEAMS[11],"team2":"","time":"1/15/17 4:40PM"}},
+3:{"team1":TEAMS[10],"team2":TEAMS[5],"time":"1/14/17 4:35PM"},
+4:{"team1":TEAMS[11],"team2":TEAMS[7],"time":"1/15/17 4:40PM"}},
 3:{
 1:{"team1":"","team2":"","time":"1/22/17 3:05PM"}, 
 2:{"team1":"","team2":"","time":"1/22/17 6:40PM"}},
@@ -43,7 +43,7 @@ class ConfigClass(object):
     DEBUG = 				  os.getenv('DEBUG', 			True)
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL',     'sqlite:///basic_app.sqlite')
     CSRF_ENABLED = True
-    PREFIX = "/nflplayoffchallenge" #Set a url prefix (bar) to run at foo.com/bar
+    PREFIX = ""#/nflplayoffchallenge" #Set a url prefix (bar) to run at foo.com/bar
 
     # Flask-User settings
     USER_APP_NAME        = "NFL Playoff Challenge"
