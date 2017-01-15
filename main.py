@@ -26,12 +26,12 @@ TIMES = {
 4:{"team1":TEAMS[6],"team2":TEAMS[7],"time":"1/8/17 4:40PM"}},
 2:{
 1:{"team1":TEAMS[8],"team2":TEAMS[1],"time":"1/14/17 8:15PM"}, 
-2:{"team1":TEAMS[9],"team2":TEAMS[3],"time":"1/15/17 1:05PM"}, 
+2:{"team1":TEAMS[9],"team2":TEAMS[3],"time":"1/15/17 8:20PM"}, 
 3:{"team1":TEAMS[10],"team2":TEAMS[5],"time":"1/14/17 4:35PM"},
 4:{"team1":TEAMS[11],"team2":TEAMS[7],"time":"1/15/17 4:40PM"}},
 3:{
-1:{"team1":"","team2":"","time":"1/22/17 3:05PM"}, 
-2:{"team1":"","team2":"","time":"1/22/17 6:40PM"}},
+1:{"team1":TEAMS[8],"team2":"","time":"1/22/17 6:40PM"}, 
+2:{"team1":TEAMS[10],"team2":"","time":"1/22/17 3:05PM"}},
 4:{
 1:{"team1":"","team2":"", "time":"2/5/17 6:30PM"}}} #Times of kickoffs
 
