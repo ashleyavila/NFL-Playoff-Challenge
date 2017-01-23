@@ -33,7 +33,7 @@ TIMES = {
 1:{"team1":TEAMS[8],"team2":TEAMS[3],"time":"1/22/17 6:40PM"}, 
 2:{"team1":TEAMS[10],"team2":TEAMS[7],"time":"1/22/17 3:05PM"}},
 4:{
-1:{"team1":"","team2":"", "time":"2/5/17 6:30PM"}}} #Times of kickoffs
+1:{"team1":"","team2":TEAMS[10], "time":"2/5/17 6:30PM"}}} #Times of kickoffs
 
 TIEBREAK_USERNAMES = [] #Usernames that should get a .1 boost for tiebreaking
 
