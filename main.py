@@ -35,7 +35,7 @@ TIMES = {
 4:{
 1:{"team1":TEAMS[8],"team2":TEAMS[10], "time":"2/5/17 6:30PM"}}} #Times of kickoffs
 
-TIEBREAK_USERNAMES = [] #Usernames that should get a .1 boost for tiebreaking
+TIEBREAK_USERNAMES = ['Mbilginsoy'] #Usernames that should get a .1 boost for tiebreaking
 
 class ConfigClass(object):
     # Flask settings
