@@ -15,7 +15,7 @@ import json
 import logging
 logging.basicConfig(filename='nfl.log',level=logging.DEBUG)
 
-CORRECTPICKS = {1: {1:2, 2:2, 3:2, 4:2}, 2: {1:1, 2:2, 3:1, 4:2}, 3: {1:1, 2:1}, 4: {1:0}} #The actual outcomes of games
+CORRECTPICKS = {1: {1:2, 2:2, 3:2, 4:2}, 2: {1:1, 2:2, 3:1, 4:2}, 3: {1:1, 2:1}, 4: {1:1}} #The actual outcomes of games
 
 TEAMS = ["Oakland Raiders", "Houston Texans", "Miami Dolphins", "Pittsburgh Steelers", "Detroit Lions", "Seattle Seahawks", "New York Giants", "Green Bay Packers", "New England Patriots", "Kansas City Chiefs", "Atlanta Falcons", "Dallas Cowboys"]
 TIMES = {
